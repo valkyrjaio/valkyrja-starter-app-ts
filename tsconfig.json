@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "ES2023",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "skipLibCheck": true,
+        "typeRoots": [".github/ci/typescript/node_modules/@types"],
+        "paths": {
+            "@valkyrja/valkyrja/*": ["../valkyrja/src/Valkyrja/*"]
+        }
+    },
+    "include": ["src/**/*", "bin/**/*"],
+    "exclude": ["node_modules"]
+}

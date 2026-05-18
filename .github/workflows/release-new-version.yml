@@ -1,0 +1,34 @@
+name: Create a New Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version component to bump'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - rc
+
+run-name: "Release ${{ inputs.bump }} bump on ${{ github.ref_name }}"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    uses: valkyrjaio/.github/.github/workflows/_create-ts-release.yml@9b108a21f1a7161aef43c83046266f2c8de60165
+    secrets: inherit
+    with:
+      bump: ${{ inputs.bump }}
+      dependencies: |
+        [
+          {"name": "Root and Suggested Packages", "directory": ".github/ci/root-and-suggested"},
+          {"name": "TypeScript",                  "directory": ".github/ci/typescript"},
+          {"name": "ESLint",                      "directory": ".github/ci/eslint"},
+          {"name": "Prettier",                    "directory": ".github/ci/prettier"},
+          {"name": "Vitest",                      "directory": ".github/ci/vitest"}
+        ]

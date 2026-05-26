@@ -1,3 +1,12 @@
+/*
+ * This file is part of the Valkyrja Application package.
+ *
+ * (c) Melech Mizrachi <melechmizrachi@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import { CliInteractionServiceId } from '@valkyrja/valkyrja/Cli/Interaction/Constant/CliInteractionServiceId.js';
 import { LoggerContractId } from '@valkyrja/valkyrja/Log/Logger/Contract/LoggerContract.js';
 import { TestCommand } from '../Command/TestCommand.js';

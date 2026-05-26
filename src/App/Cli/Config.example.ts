@@ -1,3 +1,12 @@
+/*
+ * This file is part of the Valkyrja Application package.
+ *
+ * (c) Melech Mizrachi <melechmizrachi@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import { CliConfig } from '@valkyrja/valkyrja/Application/Data/CliConfig.js';
 import { CliCommandName } from '@valkyrja/valkyrja/Cli/Server/Constant/CommandName.js';
 import { ComponentProvider } from './Provider/ComponentProvider.js';

@@ -1,3 +1,12 @@
+/*
+ * This file is part of the Valkyrja Application package.
+ *
+ * (c) Melech Mizrachi <melechmizrachi@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import { ApplicationServiceId } from '@valkyrja/valkyrja/Application/Constant/ApplicationServiceId.js';
 import { DynamicRoute } from '@valkyrja/valkyrja/Http/Routing/Data/DynamicRoute.js';
 import { Parameter } from '@valkyrja/valkyrja/Http/Routing/Data/Parameter.js';

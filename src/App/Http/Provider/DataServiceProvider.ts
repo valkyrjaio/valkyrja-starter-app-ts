@@ -1,3 +1,12 @@
+/*
+ * This file is part of the Valkyrja Application package.
+ *
+ * (c) Melech Mizrachi <melechmizrachi@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import { ContainerServiceId } from '@valkyrja/valkyrja/Container/Constant/ContainerServiceId.js';
 import { EventServiceId } from '@valkyrja/valkyrja/Event/Constant/EventServiceId.js';
 import { HttpRoutingServiceId } from '@valkyrja/valkyrja/Http/Routing/Constant/HttpRoutingServiceId.js';

@@ -1,3 +1,12 @@
+/*
+ * This file is part of the Valkyrja Application package.
+ *
+ * (c) Melech Mizrachi <melechmizrachi@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import { HttpMessageServiceId } from '@valkyrja/valkyrja/Http/Message/Constant/HttpMessageServiceId.js';
 import { HomeController } from '../Controller/HomeController.js';
 

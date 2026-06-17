@@ -1,5 +1,5 @@
 {
-    "name": "@valkyrja/application",
+    "name": "@valkyrjaio/application",
     "version": "26.0.0",
     "type": "module",
     "scripts": {

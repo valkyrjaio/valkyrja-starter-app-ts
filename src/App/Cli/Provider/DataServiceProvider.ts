@@ -7,17 +7,17 @@
  * file that was distributed with this source code.
  */
 
-import { CliRoutingServiceId } from '@valkyrja/valkyrja/Cli/Routing/Constant/CliRoutingServiceId.js';
-import { ContainerServiceId } from '@valkyrja/valkyrja/Container/Constant/ContainerServiceId.js';
-import { EventServiceId } from '@valkyrja/valkyrja/Event/Constant/EventServiceId.js';
-import { HttpRoutingServiceId } from '@valkyrja/valkyrja/Http/Routing/Constant/HttpRoutingServiceId.js';
+import { CliRoutingServiceId } from '@valkyrjaio/valkyrja/Cli/Routing/Constant/CliRoutingServiceId.js';
+import { ContainerServiceId } from '@valkyrjaio/valkyrja/Container/Constant/ContainerServiceId.js';
+import { EventServiceId } from '@valkyrjaio/valkyrja/Event/Constant/EventServiceId.js';
+import { HttpRoutingServiceId } from '@valkyrjaio/valkyrja/Http/Routing/Constant/HttpRoutingServiceId.js';
 import { AppCliRoutingData } from '../Data/AppCliRoutingData.js';
 import { AppContainerData } from '../Data/AppContainerData.js';
 import { AppEventData } from '../Data/AppEventData.js';
 import { AppHttpRoutingData } from '../Data/AppHttpRoutingData.js';
 
-import type { ContainerContract } from '@valkyrja/valkyrja/Container/Manager/Contract/ContainerContract.js';
-import type { ServiceProviderContract } from '@valkyrja/valkyrja/Container/Provider/Contract/ServiceProviderContract.js';
+import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.js';
+import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.js';
 
 export class DataServiceProvider implements ServiceProviderContract {
     publishers(): Record<string, (container: ContainerContract) => void> {

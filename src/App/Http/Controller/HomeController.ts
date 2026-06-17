@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 
-import { HtmlResponse } from '@valkyrja/valkyrja/Http/Message/Response/HtmlResponse.js';
-import { TextResponse } from '@valkyrja/valkyrja/Http/Message/Response/TextResponse.js';
+import { HtmlResponse } from '@valkyrjaio/valkyrja/Http/Message/Response/HtmlResponse.js';
+import { TextResponse } from '@valkyrjaio/valkyrja/Http/Message/Response/TextResponse.js';
 import { Controller } from './Abstract/Controller.js';
 
-import type { ApplicationContract } from '@valkyrja/valkyrja/Application/Kernel/Contract/ApplicationContract.js';
-import type { HtmlResponseContract } from '@valkyrja/valkyrja/Http/Message/Response/Contract/HtmlResponseContract.js';
-import type { JsonResponseContract } from '@valkyrja/valkyrja/Http/Message/Response/Contract/JsonResponseContract.js';
-import type { TextResponseContract } from '@valkyrja/valkyrja/Http/Message/Response/Contract/TextResponseContract.js';
+import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.js';
+import type { HtmlResponseContract } from '@valkyrjaio/valkyrja/Http/Message/Response/Contract/HtmlResponseContract.js';
+import type { JsonResponseContract } from '@valkyrjaio/valkyrja/Http/Message/Response/Contract/JsonResponseContract.js';
+import type { TextResponseContract } from '@valkyrjaio/valkyrja/Http/Message/Response/Contract/TextResponseContract.js';
 
 export class HomeController extends Controller {
     static version(app: ApplicationContract): TextResponseContract {

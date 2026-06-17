@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { HttpConfig } from '@valkyrja/valkyrja/Application/Data/HttpConfig.js';
+import { HttpConfig } from '@valkyrjaio/valkyrja/Application/Data/HttpConfig.js';
 import { ComponentProvider } from './Provider/ComponentProvider.js';
 
 export class Config extends HttpConfig {

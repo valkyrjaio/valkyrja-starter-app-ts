@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { HttpRoutingData } from '@valkyrja/valkyrja/Http/Routing/Data/HttpRoutingData.js';
+import { HttpRoutingData } from '@valkyrjaio/valkyrja/Http/Routing/Data/HttpRoutingData.js';
 
 export class AppHttpRoutingData extends HttpRoutingData {
     constructor() {

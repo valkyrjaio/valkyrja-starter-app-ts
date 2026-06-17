@@ -7,6 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { Controller as ValkyrjaController } from '@valkyrja/valkyrja/Http/Routing/Controller/Controller.js';
+import { Controller as ValkyrjaController } from '@valkyrjaio/valkyrja/Http/Routing/Controller/Controller.js';
 
 export abstract class Controller extends ValkyrjaController {}

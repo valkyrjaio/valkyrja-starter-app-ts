@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { ContainerData } from '@valkyrja/valkyrja/Container/Data/ContainerData.js';
+import { ContainerData } from '@valkyrjaio/valkyrja/Container/Data/ContainerData.js';
 
 export class AppContainerData extends ContainerData {
     constructor() {

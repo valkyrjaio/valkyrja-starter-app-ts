@@ -12,10 +12,7 @@
         "allowImportingTsExtensions": true,
         "skipLibCheck": true,
         "typeRoots": [".github/ci/typescript/node_modules/@types"],
-        "types": ["node"],
-        "paths": {
-            "@valkyrjaio/valkyrja/*": ["../valkyrja/src/Valkyrja/*"]
-        }
+        "types": ["node"]
     },
     "include": ["src/**/*", "bin/**/*"],
     "exclude": ["node_modules"]

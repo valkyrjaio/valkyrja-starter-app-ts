@@ -7,17 +7,17 @@
  * file that was distributed with this source code.
  */
 
-import { CliRoutingServiceId } from '@valkyrjaio/valkyrja/Cli/Routing/Constant/CliRoutingServiceId.js';
-import { ContainerServiceId } from '@valkyrjaio/valkyrja/Container/Constant/ContainerServiceId.js';
-import { EventServiceId } from '@valkyrjaio/valkyrja/Event/Constant/EventServiceId.js';
-import { HttpRoutingServiceId } from '@valkyrjaio/valkyrja/Http/Routing/Constant/HttpRoutingServiceId.js';
-import { AppCliRoutingData } from '../Data/AppCliRoutingData.js';
-import { AppContainerData } from '../Data/AppContainerData.js';
-import { AppEventData } from '../Data/AppEventData.js';
-import { AppHttpRoutingData } from '../Data/AppHttpRoutingData.js';
+import { CliRoutingServiceId } from '@valkyrjaio/valkyrja/Cli/Routing/Constant/CliRoutingServiceId.ts';
+import { ContainerServiceId } from '@valkyrjaio/valkyrja/Container/Constant/ContainerServiceId.ts';
+import { EventServiceId } from '@valkyrjaio/valkyrja/Event/Constant/EventServiceId.ts';
+import { HttpRoutingServiceId } from '@valkyrjaio/valkyrja/Http/Routing/Constant/HttpRoutingServiceId.ts';
+import { AppCliRoutingData } from '../Data/AppCliRoutingData.ts';
+import { AppContainerData } from '../Data/AppContainerData.ts';
+import { AppEventData } from '../Data/AppEventData.ts';
+import { AppHttpRoutingData } from '../Data/AppHttpRoutingData.ts';
 
-import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.js';
-import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.js';
+import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
+import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.ts';
 
 export class DataServiceProvider implements ServiceProviderContract {
     publishers(): Record<string, (container: ContainerContract) => void> {

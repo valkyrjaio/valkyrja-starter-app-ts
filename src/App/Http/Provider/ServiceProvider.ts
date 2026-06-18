@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
-import { HttpMessageServiceId } from '@valkyrjaio/valkyrja/Http/Message/Constant/HttpMessageServiceId.js';
-import { HomeController } from '../Controller/HomeController.js';
+import { HttpMessageServiceId } from '@valkyrjaio/valkyrja/Http/Message/Constant/HttpMessageServiceId.ts';
+import { HomeController } from '../Controller/HomeController.ts';
 
-import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.js';
-import type { ResponseFactoryContract } from '@valkyrjaio/valkyrja/Http/Message/Response/Factory/Contract/ResponseFactoryContract.js';
-import type { ServerRequestContract } from '@valkyrjaio/valkyrja/Http/Message/Request/Contract/ServerRequestContract.js';
-import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.js';
+import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
+import type { ResponseFactoryContract } from '@valkyrjaio/valkyrja/Http/Message/Response/Factory/Contract/ResponseFactoryContract.ts';
+import type { ServerRequestContract } from '@valkyrjaio/valkyrja/Http/Message/Request/Contract/ServerRequestContract.ts';
+import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.ts';
 
 export class ServiceProvider implements ServiceProviderContract {
     static readonly HomeControllerId = 'App.Http.Controller.HomeController' as const;

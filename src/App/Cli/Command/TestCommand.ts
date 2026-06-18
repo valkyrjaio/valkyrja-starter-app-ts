@@ -7,18 +7,18 @@
  * file that was distributed with this source code.
  */
 
-import { Answer } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Answer.js';
-import { Header } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Header.js';
-import { Message } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Message.js';
-import { NewLine } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/NewLine.js';
-import { Question } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Question.js';
-import { Controller } from '../Controller/Abstract/Controller.js';
+import { Answer } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Answer.ts';
+import { Header } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Header.ts';
+import { Message } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Message.ts';
+import { NewLine } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/NewLine.ts';
+import { Question } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Question.ts';
+import { Controller } from '../Controller/Abstract/Controller.ts';
 
-import type { CliConfigContract } from '@valkyrjaio/valkyrja/Application/Data/Contract/CliConfigContract.js';
-import type { AnswerContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Contract/AnswerContract.js';
-import type { MessageContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Contract/MessageContract.js';
-import type { OutputContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Output/Contract/OutputContract.js';
-import type { RouteContract } from '@valkyrjaio/valkyrja/Cli/Routing/Data/Contract/RouteContract.js';
+import type { CliConfigContract } from '@valkyrjaio/valkyrja/Application/Data/Contract/CliConfigContract.ts';
+import type { AnswerContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Contract/AnswerContract.ts';
+import type { MessageContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Contract/MessageContract.ts';
+import type { OutputContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Output/Contract/OutputContract.ts';
+import type { RouteContract } from '@valkyrjaio/valkyrja/Cli/Routing/Data/Contract/RouteContract.ts';
 
 export class TestCommand extends Controller {
     protected static readonly YES_ANSWER = 'yes';

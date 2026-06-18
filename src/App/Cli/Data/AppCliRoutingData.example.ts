@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { CliRoutingData } from '@valkyrjaio/valkyrja/Cli/Routing/Data/CliRoutingData.js';
+import { CliRoutingData } from '@valkyrjaio/valkyrja/Cli/Routing/Data/CliRoutingData.ts';
 
 export class AppCliRoutingData extends CliRoutingData {
     constructor() {

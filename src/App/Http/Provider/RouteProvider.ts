@@ -7,20 +7,20 @@
  * file that was distributed with this source code.
  */
 
-import { ApplicationServiceId } from '@valkyrjaio/valkyrja/Application/Constant/ApplicationServiceId.js';
-import { DynamicRoute } from '@valkyrjaio/valkyrja/Http/Routing/Data/DynamicRoute.js';
-import { Parameter } from '@valkyrjaio/valkyrja/Http/Routing/Data/Parameter.js';
-import { Route } from '@valkyrjaio/valkyrja/Http/Routing/Data/Route.js';
-import { RequestMethod } from '@valkyrjaio/valkyrja/Http/Message/Enum/RequestMethod.js';
-import { ServiceProvider } from './ServiceProvider.js';
+import { ApplicationServiceId } from '@valkyrjaio/valkyrja/Application/Constant/ApplicationServiceId.ts';
+import { DynamicRoute } from '@valkyrjaio/valkyrja/Http/Routing/Data/DynamicRoute.ts';
+import { Parameter } from '@valkyrjaio/valkyrja/Http/Routing/Data/Parameter.ts';
+import { Route } from '@valkyrjaio/valkyrja/Http/Routing/Data/Route.ts';
+import { RequestMethod } from '@valkyrjaio/valkyrja/Http/Message/Enum/RequestMethod.ts';
+import { ServiceProvider } from './ServiceProvider.ts';
 
-import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.js';
-import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.js';
-import type { DynamicRouteContract } from '@valkyrjaio/valkyrja/Http/Routing/Data/Contract/DynamicRouteContract.js';
-import type { ResponseContract } from '@valkyrjaio/valkyrja/Http/Message/Response/Contract/ResponseContract.js';
-import type { RouteContract } from '@valkyrjaio/valkyrja/Http/Routing/Data/Contract/RouteContract.js';
-import type { HttpRouteProviderContract } from '@valkyrjaio/valkyrja/Http/Routing/Provider/Contract/HttpRouteProviderContract.js';
-import { HomeController } from '../Controller/HomeController.js';
+import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.ts';
+import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
+import type { DynamicRouteContract } from '@valkyrjaio/valkyrja/Http/Routing/Data/Contract/DynamicRouteContract.ts';
+import type { ResponseContract } from '@valkyrjaio/valkyrja/Http/Message/Response/Contract/ResponseContract.ts';
+import type { RouteContract } from '@valkyrjaio/valkyrja/Http/Routing/Data/Contract/RouteContract.ts';
+import type { HttpRouteProviderContract } from '@valkyrjaio/valkyrja/Http/Routing/Provider/Contract/HttpRouteProviderContract.ts';
+import { HomeController } from '../Controller/HomeController.ts';
 
 export class RouteProvider implements HttpRouteProviderContract {
     getRoutes(): Array<RouteContract | DynamicRouteContract> {

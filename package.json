@@ -2,6 +2,9 @@
     "name": "@valkyrjaio/application",
     "version": "26.0.0",
     "type": "module",
+    "dependencies": {
+        "@valkyrjaio/valkyrja": "^26.1.0"
+    },
     "scripts": {
         "cli": "node --experimental-strip-types bin/cli.ts",
         "typescript": "cd .github/ci/typescript && npm run check",

@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-import { CliConfig } from '@valkyrjaio/valkyrja/Application/Data/CliConfig.js';
-import { CliCommandName } from '@valkyrjaio/valkyrja/Cli/Server/Constant/CommandName.js';
-import { ComponentProvider } from './Provider/ComponentProvider.js';
+import { CliConfig } from '@valkyrjaio/valkyrja/Application/Data/CliConfig.ts';
+import { CliCommandName } from '@valkyrjaio/valkyrja/Cli/Server/Constant/CommandName.ts';
+import { ComponentProvider } from './Provider/ComponentProvider.ts';
 
-import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.js';
+import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.ts';
 
 export class Config extends CliConfig {
     constructor() {

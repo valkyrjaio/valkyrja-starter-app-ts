@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { App } from '../src/App/Cli/App.js';
-import { Config } from '../src/App/Cli/Config.js';
+import { App } from '../src/App/Cli/App.ts';
+import { Config } from '../src/App/Cli/Config.ts';
 
 App.run(new Config());

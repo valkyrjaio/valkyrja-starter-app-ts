@@ -7,6 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { EventData } from '@valkyrjaio/valkyrja/Event/Data/EventData.js';
+import { EventData } from '@valkyrjaio/valkyrja/Event/Data/EventData.ts';
 
 export class AppEventData extends EventData {}

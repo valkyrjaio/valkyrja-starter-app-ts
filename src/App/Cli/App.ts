@@ -7,6 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { Cli } from '@valkyrjaio/valkyrja/Application/Entry/Cli.js';
+import { Cli } from '@valkyrjaio/valkyrja/Application/Entry/Cli.ts';
 
 export class App extends Cli {}

@@ -7,15 +7,15 @@
  * file that was distributed with this source code.
  */
 
-import { CliInteractionServiceId } from '@valkyrjaio/valkyrja/Cli/Interaction/Constant/CliInteractionServiceId.js';
-import { LoggerContractId } from '@valkyrjaio/valkyrja/Log/Logger/Contract/LoggerContract.js';
-import { TestCommand } from '../Command/TestCommand.js';
+import { CliInteractionServiceId } from '@valkyrjaio/valkyrja/Cli/Interaction/Constant/CliInteractionServiceId.ts';
+import { LoggerContractId } from '@valkyrjaio/valkyrja/Log/Logger/Contract/LoggerContract.ts';
+import { TestCommand } from '../Command/TestCommand.ts';
 
-import type { InputContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Input/Contract/InputContract.js';
-import type { OutputFactoryContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Output/Factory/Contract/OutputFactoryContract.js';
-import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.js';
-import type { LoggerContract } from '@valkyrjaio/valkyrja/Log/Logger/Contract/LoggerContract.js';
-import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.js';
+import type { InputContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Input/Contract/InputContract.ts';
+import type { OutputFactoryContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Output/Factory/Contract/OutputFactoryContract.ts';
+import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
+import type { LoggerContract } from '@valkyrjaio/valkyrja/Log/Logger/Contract/LoggerContract.ts';
+import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.ts';
 
 export class ServiceProvider implements ServiceProviderContract {
     static readonly TestCommandId = 'App.Cli.Command.TestCommand' as const;

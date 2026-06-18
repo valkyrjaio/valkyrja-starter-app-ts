@@ -17,7 +17,7 @@ the foundation.
 <p>
     <a href="https://www.npmjs.com/package/@valkyrjaio/application"><img src="https://img.shields.io/npm/v/@valkyrjaio/application.svg" alt="Latest Version on npm"></a>
     <a href="https://www.npmjs.com/package/@valkyrjaio/application"><img src="https://img.shields.io/node/v/@valkyrjaio/application.svg" alt="Supported Node.js Version"></a>
-    <a href="https://www.npmjs.com/package/@valkyrjaio/application"><img src="https://img.shields.io/npm/l/@valkyrjaio/application.svg" alt="License"></a>
+    <a href="https://github.com/valkyrjaio/valkyrja-starter-app-ts/blob/26.x/LICENSE.md"><img src="https://img.shields.io/github/license/valkyrjaio/valkyrja-starter-app-ts.svg" alt="License"></a>
     <a href="https://github.com/valkyrjaio/valkyrja-starter-app-ts/actions/workflows/ci.yml?query=branch%3A26.x"><img src="https://github.com/valkyrjaio/valkyrja-starter-app-ts/actions/workflows/ci.yml/badge.svg?branch=26.x" alt="CI Status"></a>
 </p>
 

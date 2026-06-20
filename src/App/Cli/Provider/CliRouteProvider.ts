@@ -18,9 +18,9 @@ import type { CliRouteProviderContract } from '@valkyrjaio/valkyrja/Cli/Routing/
 import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
 import type { TestCommand } from '../Command/TestCommand.ts';
 
-export class RouteProvider implements CliRouteProviderContract {
+export class CliRouteProvider implements CliRouteProviderContract {
     getRoutes(): RouteContract[] {
-        return [new Route('test', 'Test command', RouteProvider.testCommandHandler)];
+        return [new Route('test', 'Test command', CliRouteProvider.testCommandHandler)];
     }
 
     static testCommandHandler(this: void, container: ContainerContract, route: RouteContract): OutputContract {

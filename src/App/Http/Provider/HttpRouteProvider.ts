@@ -22,26 +22,26 @@ import type { RouteContract } from '@valkyrjaio/valkyrja/Http/Routing/Data/Contr
 import type { HttpRouteProviderContract } from '@valkyrjaio/valkyrja/Http/Routing/Provider/Contract/HttpRouteProviderContract.ts';
 import { HomeController } from '../Controller/HomeController.ts';
 
-export class RouteProvider implements HttpRouteProviderContract {
+export class HttpRouteProvider implements HttpRouteProviderContract {
     getRoutes(): Array<RouteContract | DynamicRouteContract> {
         return [
-            new Route('/version', 'version', RouteProvider.versionHandler, [
+            new Route('/version', 'version', HttpRouteProvider.versionHandler, [
                 RequestMethod.GET,
                 RequestMethod.POST,
                 RequestMethod.PUT,
             ]),
-            new Route('/text', 'text', RouteProvider.textHandler, [RequestMethod.GET]),
-            new Route('/', 'welcome', RouteProvider.welcomeHandler),
-            new Route('/cached', 'welcome.cached', RouteProvider.welcomeCachedHandler),
+            new Route('/text', 'text', HttpRouteProvider.textHandler, [RequestMethod.GET]),
+            new Route('/', 'welcome', HttpRouteProvider.welcomeHandler),
+            new Route('/cached', 'welcome.cached', HttpRouteProvider.welcomeCachedHandler),
             new DynamicRoute(
                 '/{value}',
                 'dynamicValue',
                 '/([a-zA-Z]+)',
                 [new Parameter('value', '[a-zA-Z]+')],
-                RouteProvider.dynamicHandler,
+                HttpRouteProvider.dynamicHandler,
             ),
-            new Route('/home', 'home', RouteProvider.homeHandler, [RequestMethod.GET, RequestMethod.HEAD]),
-            new Route('/json', 'json', RouteProvider.jsonHandler),
+            new Route('/home', 'home', HttpRouteProvider.homeHandler, [RequestMethod.GET, RequestMethod.HEAD]),
+            new Route('/json', 'json', HttpRouteProvider.jsonHandler),
         ];
     }
 

@@ -7,6 +7,13 @@
  * file that was distributed with this source code.
  */
 
+import { describe, expect, it } from 'vitest';
+
+import { AppCliRoutingData } from '../../../../../src/App/Cli/Data/AppCliRoutingData.ts';
 import { CliRoutingData } from '@valkyrjaio/valkyrja/Cli/Routing/Data/CliRoutingData.ts';
 
-export class AppCliRoutingData extends CliRoutingData {}
+describe('AppCliRoutingData', () => {
+    it('is a CliRoutingData', () => {
+        expect(new AppCliRoutingData()).toBeInstanceOf(CliRoutingData);
+    });
+});

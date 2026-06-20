@@ -9,7 +9,7 @@
 
 import { ContainerServiceProvider } from '@valkyrjaio/valkyrja/Container/Provider/ContainerServiceProvider.ts';
 import { DataServiceProvider } from './DataServiceProvider.ts';
-import { RouteProvider } from './RouteProvider.ts';
+import { HttpRouteProvider } from './HttpRouteProvider.ts';
 import { ServiceProvider } from './ServiceProvider.ts';
 
 import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.ts';
@@ -39,7 +39,7 @@ export class ComponentProvider implements ComponentProviderContract {
     }
 
     getHttpProviders(_app: ApplicationContract): HttpRouteProviderContract[] {
-        return [new RouteProvider()];
+        return [new HttpRouteProvider()];
     }
 
     static publish(app: ApplicationContract): void {

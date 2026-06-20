@@ -5,9 +5,15 @@
     "dependencies": {
         "@valkyrjaio/valkyrja": "^26.1.0"
     },
+    "devDependencies": {
+        "@valkyrjaio/sindri": "^26.1.0"
+    },
     "scripts": {
         "postinstall": "node scripts/copy-example-files.mjs",
         "cli": "node --experimental-strip-types bin/cli.ts",
+        "sindri:http": "sindri generate src/App/Http/Config.ts",
+        "sindri:cli": "sindri generate src/App/Cli/Config.ts",
+        "sindri": "npm run sindri:http && npm run sindri:cli",
         "typescript": "cd .github/ci/typescript && npm run check",
         "typescript-check": "tsc --noEmit",
         "typescript-outdated-check": "cd .github/ci/typescript && npm install && npm outdated",

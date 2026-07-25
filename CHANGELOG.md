@@ -1,6 +1,10 @@
 # Release Notes for 26.x
 
-## [Unreleased](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.1.0...26.x)
+## [Unreleased](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.2.0...26.x)
+
+## [v26.2.0](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.1.0...v26.2.0) - 2026-07-25
+
+* [npm] Align [@valkyrjaio](https://github.com/valkyrjaio)/valkyrja and [@valkyrjaio](https://github.com/valkyrjaio)/sindri to ^26.2.0 by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/valkyrja-starter-app-ts/pull/70
 
 ## [v26.1.0](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.0.0...v26.1.0) - 2026-07-25
 

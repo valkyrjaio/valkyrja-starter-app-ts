@@ -1,10 +1,10 @@
 {
-  "private"        : true,
-  "scripts"        : {
-    "check" : "cd ../../.. && tsc --noEmit -p tsconfig.json"
+  "private": true,
+  "scripts": {
+    "check": "cd ../../.. && tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
-    "@types/node": "^25.0.0",
-    "typescript": "^6.0.0"
+    "@types/node": "^25.9.5",
+    "typescript": "^6.0.3"
   }
 }

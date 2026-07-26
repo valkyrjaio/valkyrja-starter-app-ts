@@ -17,5 +17,6 @@ jobs:
           {"name": "TypeScript",                  "directory": ".github/ci/typescript"},
           {"name": "ESLint",                      "directory": ".github/ci/eslint"},
           {"name": "Prettier",                    "directory": ".github/ci/prettier"},
-          {"name": "Vitest",                      "directory": ".github/ci/vitest"}
+          {"name": "Vitest",                      "directory": ".github/ci/vitest"},
+          {"name": "Sindri Vitest",               "directory": ".github/ci/sindri-vitest"}
         ]

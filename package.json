@@ -3,7 +3,7 @@
     "version": "26.0.0",
     "type": "module",
     "dependencies": {
-        "@valkyrjaio/valkyrja": "^26.2.0"
+        "@valkyrjaio/valkyrja": "^26.3.0"
     },
     "devDependencies": {
         "@valkyrjaio/sindri": "^26.2.0"

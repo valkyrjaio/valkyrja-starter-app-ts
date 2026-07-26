@@ -6,7 +6,7 @@
         "@valkyrjaio/valkyrja": "^26.3.0"
     },
     "devDependencies": {
-        "@valkyrjaio/sindri": "^26.2.0"
+        "@valkyrjaio/sindri": "^26.3.0"
     },
     "scripts": {
         "postinstall": "node scripts/copy-example-files.mjs",
@@ -34,6 +34,10 @@
         "vitest-outdated-check": "cd .github/ci/vitest && npm install && npm outdated",
         "vitest-outdated-check-major-release": "cd .github/ci/vitest && npm install && npm outdated",
         "vitest-npm-update": "cd .github/ci/vitest && npm update",
+        "sindri-vitest": "npm run sindri && cd .github/ci/sindri-vitest && npm run check",
+        "sindri-vitest-outdated-check": "cd .github/ci/sindri-vitest && npm install && npm outdated",
+        "sindri-vitest-outdated-check-major-release": "cd .github/ci/sindri-vitest && npm install && npm outdated",
+        "sindri-vitest-npm-update": "cd .github/ci/sindri-vitest && npm update",
         "root-outdated-check": "npm install && npm outdated",
         "root-outdated-check-major-release": "npm install && npm outdated",
         "root-and-suggested-outdated-check": "cd .github/ci/root-and-suggested && npm install && npm outdated",

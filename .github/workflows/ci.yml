@@ -102,3 +102,44 @@ jobs:
           - 'package.json'
           - 'package-lock.json'
     secrets: inherit
+
+  # Unlike `vitest` (which seeds the empty `*.example.ts` stubs via the root
+  # postinstall and asserts the stub classes), this job runs Sindri to generate
+  # the REAL App*Data classes into the source tree and tests the application as
+  # it actually runs in production — a separate, isolated environment so stubbed
+  # and generated results never mingle, and a way to exercise Sindri against a
+  # real application before a release. It cannot reuse `_ts-vitest.yml`: that
+  # workflow has no step to run the generator, so the job is defined inline here
+  # (no shared/reusable workflow is modified).
+  sindri-vitest:
+    name: Sindri Vitest
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: .github/ci/sindri-vitest/package-lock.json
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Generate the data caches with Sindri
+        run: npm run sindri
+
+      - name: Install CI dependencies
+        working-directory: .github/ci/sindri-vitest
+        run: npm ci
+
+      - name: Run Sindri Vitest
+        working-directory: .github/ci/sindri-vitest
+        run: npm run check

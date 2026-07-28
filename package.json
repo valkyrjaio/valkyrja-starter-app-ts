@@ -11,6 +11,8 @@
     "scripts": {
         "postinstall": "node scripts/copy-example-files.mjs",
         "cli": "node --experimental-strip-types bin/cli.ts",
+        "http": "node --experimental-transform-types bin/http.ts",
+        "worker-http": "node --experimental-transform-types bin/worker-http.ts",
         "sindri:http": "sindri generate src/App/Http/Config.ts",
         "sindri:cli": "sindri generate src/App/Cli/Config.ts",
         "sindri": "npm run sindri:http && npm run sindri:cli",

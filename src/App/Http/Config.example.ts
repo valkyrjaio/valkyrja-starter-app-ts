@@ -11,13 +11,13 @@ import { HttpConfig } from '@valkyrjaio/valkyrja/Application/Data/HttpConfig.ts'
 import { ComponentProvider } from './Provider/ComponentProvider.ts';
 
 export class Config extends HttpConfig {
-    constructor() {
+    constructor(debugMode: boolean = false) {
         super(
             'App',
             process.cwd(),
             '1.0.0',
             'production',
-            false,
+            debugMode,
             'UTC',
             'some_secret_app_key',
             'src/App/Http/Data',

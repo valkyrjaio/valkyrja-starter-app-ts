@@ -14,21 +14,39 @@ import { AppCliRoutingData as HttpAppCliRoutingData } from '../../../../src/App/
 import { CliRoutingData } from '@valkyrjaio/valkyrja/Cli/Routing/Data/CliRoutingData.ts';
 
 // Asserts the REAL Sindri-generated CLI routing data: the CLI application's
-// CliRouteProvider registers a single `test` command, while the HTTP
-// application exposes no CLI routes at all.
+// component-provider tree reaches the framework's own CLI route providers as
+// well as the app's, so the cache holds the framework built-ins alongside the
+// app's `test` command. The HTTP application declares no CLI providers of its
+// own, but its tree still reaches the HTTP routing component's `http:list`.
 describe('generated AppCliRoutingData', () => {
     it('is a CliRoutingData', () => {
         expect(new AppCliRoutingData()).toBeInstanceOf(CliRoutingData);
     });
 
-    it('generates the test command from the CliRouteProvider', () => {
+    it('generates the framework built-in commands alongside the app test command', () => {
         const data = new AppCliRoutingData();
 
-        expect(Object.keys(data.routes)).toStrictEqual(['test']);
-        expect(data.routes['test']!().getName()).toBe('test');
+        expect(Object.keys(data.routes)).toStrictEqual([
+            'help',
+            'list',
+            'list:bash',
+            'version',
+            'http:list',
+            'test',
+        ]);
     });
 
-    it('generates no CLI routes for the HTTP application', () => {
-        expect(Object.keys(new HttpAppCliRoutingData().routes)).toStrictEqual([]);
+    it.each([['help'], ['list'], ['list:bash'], ['version'], ['http:list'], ['test']])(
+        'names the %s route after its key',
+        (name) => {
+            expect(new AppCliRoutingData().routes[name]!().getName()).toBe(name);
+        },
+    );
+
+    it('generates only the HTTP routing command for the HTTP application', () => {
+        const data = new HttpAppCliRoutingData();
+
+        expect(Object.keys(data.routes)).toStrictEqual(['http:list']);
+        expect(data.routes['http:list']!().getName()).toBe('http:list');
     });
 });

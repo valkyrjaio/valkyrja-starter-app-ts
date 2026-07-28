@@ -13,6 +13,7 @@ import { CliInteractionServiceId } from '@valkyrjaio/valkyrja/Cli/Interaction/Co
 import { Container } from '@valkyrjaio/valkyrja/Container/Manager/Container.ts';
 import { LoggerContractId } from '@valkyrjaio/valkyrja/Log/Logger/Contract/LoggerContract.ts';
 
+import { AppCliServiceId } from '../../../../../src/App/Cli/Constant/AppCliServiceId.ts';
 import { ServiceProvider } from '../../../../../src/App/Cli/Provider/ServiceProvider.ts';
 import { TestCommand } from '../../../../../src/App/Cli/Command/TestCommand.ts';
 
@@ -30,7 +31,7 @@ describe('ServiceProvider', () => {
 
         ServiceProvider.publishTestCommand(container);
 
-        expect(container.getSingleton(ServiceProvider.TestCommandId)).toBeInstanceOf(TestCommand);
+        expect(container.getSingleton(AppCliServiceId.TestCommand)).toBeInstanceOf(TestCommand);
     });
 
     it('publishes a null logger whose methods are all no-ops', () => {

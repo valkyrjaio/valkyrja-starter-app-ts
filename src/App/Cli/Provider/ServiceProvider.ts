@@ -9,6 +9,7 @@
 
 import { CliInteractionServiceId } from '@valkyrjaio/valkyrja/Cli/Interaction/Constant/CliInteractionServiceId.ts';
 import { LoggerContractId } from '@valkyrjaio/valkyrja/Log/Logger/Contract/LoggerContract.ts';
+import { AppCliServiceId } from '../Constant/AppCliServiceId.ts';
 import { TestCommand } from '../Command/TestCommand.ts';
 
 import type { InputContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Input/Contract/InputContract.ts';
@@ -18,18 +19,16 @@ import type { LoggerContract } from '@valkyrjaio/valkyrja/Log/Logger/Contract/Lo
 import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.ts';
 
 export class ServiceProvider implements ServiceProviderContract {
-    static readonly TestCommandId = 'App.Cli.Command.TestCommand' as const;
-
     publishers(): Record<string, (container: ContainerContract) => void> {
         return {
-            [ServiceProvider.TestCommandId]: ServiceProvider.publishTestCommand,
+            [AppCliServiceId.TestCommand]: ServiceProvider.publishTestCommand,
             [LoggerContractId]: ServiceProvider.publishLogger,
         };
     }
 
     static publishTestCommand(this: void, container: ContainerContract): void {
         container.setSingleton<TestCommand>(
-            ServiceProvider.TestCommandId,
+            AppCliServiceId.TestCommand,
             new TestCommand(
                 container.getSingleton<InputContract>(CliInteractionServiceId.InputContract),
                 container.getSingleton<OutputFactoryContract>(CliInteractionServiceId.OutputFactoryContract),

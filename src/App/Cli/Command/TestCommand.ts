@@ -12,7 +12,10 @@ import { Header } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Header.ts';
 import { Message } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Message.ts';
 import { NewLine } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/NewLine.ts';
 import { Question } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Question.ts';
+import { Route } from '@valkyrjaio/valkyrja/Cli/Routing/Attribute/Route.ts';
+import { RouteHandler } from '@valkyrjaio/valkyrja/Cli/Routing/Attribute/Route/RouteHandler.ts';
 import { Controller } from '../Controller/Abstract/Controller.ts';
+import { CliRouteProvider } from '../Provider/CliRouteProvider.ts';
 
 import type { CliConfigContract } from '@valkyrjaio/valkyrja/Application/Data/Contract/CliConfigContract.ts';
 import type { AnswerContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Contract/AnswerContract.ts';
@@ -28,6 +31,14 @@ export class TestCommand extends Controller {
         return new Message('A command to showcase possibilities for commands.');
     }
 
+    // `helpText` mirrors PHP's `helpText: [self::class, 'help']`. It is written as
+    // a thunk because a TC39 Stage-3 method decorator runs while the class binding
+    // is still in its temporal dead zone: naming `TestCommand` directly here would
+    // throw `ReferenceError: Cannot access 'TestCommand' before initialization`.
+    // The closure never dereferences the binding, so the self-reference is safe —
+    // the collector calls it only once the module has finished initializing.
+    @Route({ name: 'test', description: 'Test command', helpText: [() => TestCommand, 'help'] })
+    @RouteHandler([() => CliRouteProvider, 'testCommandHandler'])
     run(route: RouteContract, config: CliConfigContract): OutputContract {
         return this.outputFactory
             .createOutput()

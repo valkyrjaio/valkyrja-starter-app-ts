@@ -8,6 +8,7 @@
  */
 
 import { HttpMessageServiceId } from '@valkyrjaio/valkyrja/Http/Message/Constant/HttpMessageServiceId.ts';
+import { AppHttpServiceId } from '../Constant/AppHttpServiceId.ts';
 import { HomeController } from '../Controller/HomeController.ts';
 
 import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
@@ -16,17 +17,15 @@ import type { ServerRequestContract } from '@valkyrjaio/valkyrja/Http/Message/Re
 import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.ts';
 
 export class ServiceProvider implements ServiceProviderContract {
-    static readonly HomeControllerId = 'App.Http.Controller.HomeController' as const;
-
     publishers(): Record<string, (container: ContainerContract) => void> {
         return {
-            [ServiceProvider.HomeControllerId]: ServiceProvider.publishHomeController,
+            [AppHttpServiceId.HomeController]: ServiceProvider.publishHomeController,
         };
     }
 
     static publishHomeController(this: void, container: ContainerContract): void {
         container.setSingleton<HomeController>(
-            ServiceProvider.HomeControllerId,
+            AppHttpServiceId.HomeController,
             new HomeController(
                 container.getSingleton<ServerRequestContract>(HttpMessageServiceId.ServerRequestContract),
                 container.getSingleton<ResponseFactoryContract>(HttpMessageServiceId.ResponseFactoryContract),

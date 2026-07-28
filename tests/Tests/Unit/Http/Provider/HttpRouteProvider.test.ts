@@ -13,11 +13,13 @@ import { ApplicationServiceId } from '@valkyrjaio/valkyrja/Application/Constant/
 import { Container } from '@valkyrjaio/valkyrja/Container/Manager/Container.ts';
 import { DynamicRoute } from '@valkyrjaio/valkyrja/Http/Routing/Data/DynamicRoute.ts';
 import { Parameter } from '@valkyrjaio/valkyrja/Http/Routing/Data/Parameter.ts';
+import { Route } from '@valkyrjaio/valkyrja/Http/Routing/Data/Route.ts';
+import { HtmlResponse } from '@valkyrjaio/valkyrja/Http/Message/Response/HtmlResponse.ts';
 import { ResponseFactory } from '@valkyrjaio/valkyrja/Http/Message/Response/Factory/ResponseFactory.ts';
 
+import { AppHttpServiceId } from '../../../../../src/App/Http/Constant/AppHttpServiceId.ts';
 import { HomeController } from '../../../../../src/App/Http/Controller/HomeController.ts';
 import { HttpRouteProvider } from '../../../../../src/App/Http/Provider/HttpRouteProvider.ts';
-import { ServiceProvider } from '../../../../../src/App/Http/Provider/ServiceProvider.ts';
 
 import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.ts';
 import type { RouteContract } from '@valkyrjaio/valkyrja/Http/Routing/Data/Contract/RouteContract.ts';
@@ -26,20 +28,28 @@ function containerWithHome(): Container {
     const container = new Container();
     const app = { getVersion: () => '1.0.0' } as unknown as ApplicationContract;
     container.setSingleton(ApplicationServiceId.ApplicationContract, app);
-    container.setSingleton(ServiceProvider.HomeControllerId, new HomeController({} as never, new ResponseFactory()));
+    container.setSingleton(AppHttpServiceId.HomeController, new HomeController({} as never, new ResponseFactory()));
 
     return container;
 }
 
 describe('HttpRouteProvider', () => {
-    it('provides all of the home routes', () => {
-        expect(new HttpRouteProvider().getRoutes()).toHaveLength(7);
+    // The seven home routes moved from `getRoutes()` onto `HomeController`'s `@Route`
+    // decorators; Sindri reads them statically from the controller that
+    // `getControllerClasses()` names, so the imperative list is now empty.
+    it('registers no imperative routes, declaring them on the controller instead', () => {
+        expect(new HttpRouteProvider().getRoutes()).toStrictEqual([]);
+    });
+
+    // Debug mode rediscovers routes at run time from this list, so it must hand
+    // back the real class object, not a type-only reference erased at run time.
+    it('names the controller its routes are declared on', () => {
+        expect(new HttpRouteProvider().getControllerClasses()).toStrictEqual([HomeController]);
     });
 
     it('runs each route handler', () => {
         const container = containerWithHome();
-        const routes = new HttpRouteProvider().getRoutes();
-        const route = routes[0] as RouteContract;
+        const route = new Route('/', 'welcome', () => new HtmlResponse('')) as RouteContract;
 
         expect(HttpRouteProvider.versionHandler(container, route)).toBeDefined();
         expect(HttpRouteProvider.textHandler(container, route)).toBeDefined();

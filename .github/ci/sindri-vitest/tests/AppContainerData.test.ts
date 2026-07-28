@@ -19,8 +19,8 @@ import { EventServiceId } from '@valkyrjaio/valkyrja/Event/Constant/EventService
 import { HttpRoutingServiceId } from '@valkyrjaio/valkyrja/Http/Routing/Constant/HttpRoutingServiceId.ts';
 import { HttpServerServiceId } from '@valkyrjaio/valkyrja/Http/Server/Constant/HttpServerServiceId.ts';
 import { LoggerContractId } from '@valkyrjaio/valkyrja/Log/Logger/Contract/LoggerContract.ts';
-import { ServiceProvider } from '../../../../src/App/Cli/Provider/ServiceProvider.ts';
-import { ServiceProvider as HttpServiceProvider } from '../../../../src/App/Http/Provider/ServiceProvider.ts';
+import { AppCliServiceId } from '../../../../src/App/Cli/Constant/AppCliServiceId.ts';
+import { AppHttpServiceId } from '../../../../src/App/Http/Constant/AppHttpServiceId.ts';
 
 // Asserts the REAL Sindri-generated container data. Every key below is named by
 // a binding-key constant rather than a bare string, covering each form Sindri
@@ -56,9 +56,9 @@ describe('generated AppContainerData', () => {
     });
 
     it("publishes the services the application's own ServiceProvider declares", () => {
-        // Keyed by a constant the provider declares itself, which lives in no import map.
-        expect(Object.keys(data.deferredCallback)).toContain(ServiceProvider.TestCommandId);
-        expect(Object.keys(httpData.deferredCallback)).toContain(HttpServiceProvider.HomeControllerId);
+        // Keyed by a constant the application declares itself, which lives in no import map.
+        expect(Object.keys(data.deferredCallback)).toContain(AppCliServiceId.TestCommand);
+        expect(Object.keys(httpData.deferredCallback)).toContain(AppHttpServiceId.HomeController);
     });
 
     it('publishes the service keyed by a module-level constant', () => {

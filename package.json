@@ -10,7 +10,7 @@
     },
     "scripts": {
         "postinstall": "node scripts/copy-example-files.mjs",
-        "cli": "node --experimental-strip-types bin/cli.ts",
+        "cli": "node --experimental-transform-types bin/cli.ts",
         "http": "node --experimental-transform-types bin/http.ts",
         "worker-http": "node --experimental-transform-types bin/worker-http.ts",
         "sindri:http": "sindri generate src/App/Http/Config.ts",

@@ -18,11 +18,16 @@ import { ContainerServiceId } from '@valkyrjaio/valkyrja/Container/Constant/Cont
 import { EventServiceId } from '@valkyrjaio/valkyrja/Event/Constant/EventServiceId.ts';
 import { HttpRoutingServiceId } from '@valkyrjaio/valkyrja/Http/Routing/Constant/HttpRoutingServiceId.ts';
 import { HttpServerServiceId } from '@valkyrjaio/valkyrja/Http/Server/Constant/HttpServerServiceId.ts';
+import { LoggerContractId } from '@valkyrjaio/valkyrja/Log/Logger/Contract/LoggerContract.ts';
+import { ServiceProvider } from '../../../../src/App/Cli/Provider/ServiceProvider.ts';
+import { ServiceProvider as HttpServiceProvider } from '../../../../src/App/Http/Provider/ServiceProvider.ts';
 
 // Asserts the REAL Sindri-generated container data. Every key below is named by
-// a framework binding-key constant declared as `'…' as const`, so an empty
-// `deferredCallback` here means Sindri stopped resolving those constants and
-// silently dropped the publishers they name — the failure that left the cached
+// a binding-key constant rather than a bare string, covering each form Sindri
+// has to resolve: a framework class static (`'…' as const`), a constant the
+// provider declares for its own service, and a module-level exported constant.
+// A key missing here means Sindri stopped resolving that form and silently
+// dropped the publishers it names — the failure that left the cached
 // (non-debug) application unable to resolve its own input handler.
 describe('generated AppContainerData', () => {
     const data = new AppContainerData();
@@ -48,6 +53,17 @@ describe('generated AppContainerData', () => {
             expect(Object.keys(cache.deferredCallback)).toContain(ContainerServiceId.Data);
             expect(Object.keys(cache.deferredCallback)).toContain(EventServiceId.EventData);
         }
+    });
+
+    it("publishes the services the application's own ServiceProvider declares", () => {
+        // Keyed by a constant the provider declares itself, which lives in no import map.
+        expect(Object.keys(data.deferredCallback)).toContain(ServiceProvider.TestCommandId);
+        expect(Object.keys(httpData.deferredCallback)).toContain(HttpServiceProvider.HomeControllerId);
+    });
+
+    it('publishes the service keyed by a module-level constant', () => {
+        // `LoggerContractId` is an exported const, not a class static.
+        expect(Object.keys(data.deferredCallback)).toContain(LoggerContractId);
     });
 
     it('registers the container data itself when its deferred callback runs', () => {

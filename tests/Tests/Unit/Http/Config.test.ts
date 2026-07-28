@@ -30,6 +30,10 @@ describe('Config', () => {
         expect(config.dataNamespace).toBe('App/Http/Data');
     });
 
+    it('enables debug mode when requested', () => {
+        expect(new Config(true).debugMode).toBe(true);
+    });
+
     it('registers the component provider', () => {
         expect(new Config().providers[0]).toBeInstanceOf(ComponentProvider);
     });

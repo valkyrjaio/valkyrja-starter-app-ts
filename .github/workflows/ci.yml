@@ -99,6 +99,7 @@ jobs:
           - '.github/workflows/ci.yml'
           - 'src/**/*.ts'
           - 'tests/**/*.ts'
+          - 'bin/**/*.ts'
           - 'package.json'
           - 'package-lock.json'
     secrets: inherit

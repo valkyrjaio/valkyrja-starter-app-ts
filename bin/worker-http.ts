@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-import { App } from '../src/App/WorkerHttp/App.ts';
+import { WorkerApp } from '../src/App/Http/WorkerApp.ts';
 import { Config } from '../src/App/Http/Config.ts';
 
 const port = process.env['PORT'] !== undefined ? Number(process.env['PORT']) : 3000;
 const debugMode = process.env['APP_DEBUG'] === 'true';
 
-App.run(new Config(debugMode), port);
+WorkerApp.run(new Config(debugMode), port);

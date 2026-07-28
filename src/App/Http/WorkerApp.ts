@@ -9,4 +9,4 @@
 
 import { WorkerHttp } from '@valkyrjaio/valkyrja/Application/Entry/WorkerHttp.ts';
 
-export class App extends WorkerHttp {}
+export class WorkerApp extends WorkerHttp {}

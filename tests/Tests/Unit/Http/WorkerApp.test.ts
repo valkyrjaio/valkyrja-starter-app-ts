@@ -11,18 +11,18 @@ import { describe, expect, it } from 'vitest';
 
 import { WorkerHttp } from '@valkyrjaio/valkyrja/Application/Entry/WorkerHttp.ts';
 
-import { App } from '../../../../src/App/WorkerHttp/App.ts';
+import { WorkerApp } from '../../../../src/App/Http/WorkerApp.ts';
 
-describe('App', () => {
+describe('WorkerApp', () => {
     it('is a WorkerHttp entry', () => {
-        expect(App.prototype).toBeInstanceOf(WorkerHttp);
+        expect(WorkerApp.prototype).toBeInstanceOf(WorkerHttp);
     });
 
     it('exposes a throwable handler', () => {
-        expect(App.getThrowableHandler()).toBeDefined();
+        expect(WorkerApp.getThrowableHandler()).toBeDefined();
     });
 
     it('runs the default exception handler without throwing', () => {
-        expect(() => App.defaultExceptionHandler()).not.toThrow();
+        expect(() => WorkerApp.defaultExceptionHandler()).not.toThrow();
     });
 });

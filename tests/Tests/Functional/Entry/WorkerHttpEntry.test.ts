@@ -16,13 +16,13 @@ import { RequestMethod } from '@valkyrjaio/valkyrja/Http/Message/Enum/RequestMet
 import { ServerRequest } from '@valkyrjaio/valkyrja/Http/Message/Request/ServerRequest.ts';
 import { UriFactory } from '@valkyrjaio/valkyrja/Http/Message/Uri/Factory/UriFactory.ts';
 
-import { App } from '../../../../src/App/WorkerHttp/App.ts';
+import { WorkerApp } from '../../../../src/App/Http/WorkerApp.ts';
 import { Config } from '../../../../src/App/Http/Config.ts';
 
 import type { RequestHandlerContract } from '@valkyrjaio/valkyrja/Http/Server/Handler/Contract/RequestHandlerContract.ts';
 
 /**
- * In-process smoke test for the worker HTTP entry point (`App/WorkerHttp/App`).
+ * In-process smoke test for the worker HTTP entry point (`App/Http/WorkerApp`).
  *
  * The over-the-socket run in `WorkerHttpServerEntry.test.ts` executes in a
  * subprocess, whose execution coverage instrumentation cannot see, so this boots
@@ -35,15 +35,15 @@ import type { RequestHandlerContract } from '@valkyrjaio/valkyrja/Http/Server/Ha
  */
 describe('WorkerHttpEntry', () => {
     it('bootstraps once and dispatches GET / to the welcome view from a child scope', () => {
-        const app = App.bootstrap(new Config(true));
+        const app = WorkerApp.bootstrap(new Config(true));
         const data = app.getContainer().getData();
 
         // Mirror the per-request work `handle()` performs, then dispatch through
         // the child container the worker would use for the request.
-        const childContainer = App.getChildContainer(app, data);
-        const childApp = App.getChildApplication(app, childContainer);
+        const childContainer = WorkerApp.getChildContainer(app, data);
+        const childApp = WorkerApp.getChildApplication(app, childContainer);
 
-        App.bootstrapChildContainer(childApp, childContainer);
+        WorkerApp.bootstrapChildContainer(childApp, childContainer);
 
         expect(data).toBeInstanceOf(ContainerData);
 
@@ -61,11 +61,11 @@ describe('WorkerHttpEntry', () => {
     });
 
     it('serves each request from a distinct child scope', () => {
-        const app = App.bootstrap(new Config(true));
+        const app = WorkerApp.bootstrap(new Config(true));
         const data = app.getContainer().getData();
 
-        const first = App.getChildContainer(app, data);
-        const second = App.getChildContainer(app, data);
+        const first = WorkerApp.getChildContainer(app, data);
+        const second = WorkerApp.getChildContainer(app, data);
 
         expect(first).not.toBe(second);
     });

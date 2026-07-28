@@ -39,6 +39,13 @@ export class RuntimeServer {
     }
 
     /**
+     * Get the path to the locally installed `tsx` binary.
+     */
+    static tsxBinary(): string {
+        return fileURLToPath(new URL('../../../../node_modules/.bin/tsx', import.meta.url));
+    }
+
+    /**
      * Reserve a free localhost TCP port.
      */
     static async findFreePort(): Promise<number> {
@@ -60,10 +67,12 @@ export class RuntimeServer {
     async start(entry: string, env: Record<string, string> = {}): Promise<void> {
         this.port = await RuntimeServer.findFreePort();
 
-        // The framework source uses TypeScript syntax that Node's strip-only mode
-        // cannot handle (parameter properties, enums), so the entry is run with
-        // full type transformation.
-        this.process = spawn('node', ['--experimental-transform-types', entry], {
+        // The framework ships TypeScript source, and Node refuses to transform
+        // TypeScript that lives under `node_modules`, so the entry is run through
+        // `tsx` — the same loader the `http` / `worker-http` scripts use. The local
+        // binary is invoked directly rather than through `npx`, so no wrapper
+        // process sits between this harness and the server it has to tear down.
+        this.process = spawn(RuntimeServer.tsxBinary(), [entry], {
             cwd: RuntimeServer.appRoot(),
             env: {
                 ...process.env,

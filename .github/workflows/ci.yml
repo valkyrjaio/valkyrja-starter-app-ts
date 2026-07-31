@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches: [ 'master', '*.x' ]
+
   pull_request:
     # `edited` is included so a pull request that GitHub auto-retargets — which happens to a stacked
     # pull request the moment its parent merges — re-runs its checks against the new base. A
@@ -23,6 +24,7 @@ permissions:
   contents: read
 
 jobs:
+
   commit-message-check:
     name: Commit Message Check
     if: github.event_name == 'pull_request'
@@ -38,95 +40,6 @@ jobs:
       contents: read
     secrets: inherit
 
-  typescript:
-    name: TypeScript
-    uses: valkyrjaio/.github/.github/workflows/_ts-ci-tool.yml@ddea291816127b905f6e00006e998f4a6851c1e8
-    with:
-      tool: 'typescript'
-      ci-directory: .github/ci/typescript
-      paths: |
-        ci:
-          - '.github/ci/typescript/**'
-          - '.github/workflows/ci.yml'
-        files:
-          - '.github/ci/typescript/**'
-          - '.github/workflows/ci.yml'
-          - 'src/**/*.ts'
-          - 'bin/**/*.ts'
-          - 'tsconfig.json'
-          - 'package.json'
-          - 'package-lock.json'
-    secrets: inherit
-
-  eslint:
-    name: ESLint
-    uses: valkyrjaio/.github/.github/workflows/_ts-ci-tool.yml@ddea291816127b905f6e00006e998f4a6851c1e8
-    with:
-      tool: 'eslint'
-      ci-directory: .github/ci/eslint
-      additional-directory: .github/ci/typescript
-      paths: |
-        ci:
-          - '.github/ci/typescript/**'
-          - '.github/ci/eslint/**'
-          - '.github/workflows/ci.yml'
-        files:
-          - '.github/ci/typescript/**'
-          - '.github/ci/eslint/**'
-          - '.github/workflows/ci.yml'
-          - 'src/**/*.ts'
-          - 'bin/**/*.ts'
-          - 'tsconfig.json'
-          - 'package.json'
-          - 'package-lock.json'
-    secrets: inherit
-
-  prettier:
-    name: Prettier
-    uses: valkyrjaio/.github/.github/workflows/_ts-ci-tool.yml@ddea291816127b905f6e00006e998f4a6851c1e8
-    with:
-      tool: 'prettier'
-      ci-directory: .github/ci/prettier
-      paths: |
-        ci:
-          - '.github/ci/prettier/**'
-          - '.github/workflows/ci.yml'
-        files:
-          - '.github/ci/prettier/**'
-          - '.github/workflows/ci.yml'
-          - 'src/**/*.ts'
-          - 'bin/**/*.ts'
-          - '*.json'
-          - '*.md'
-    secrets: inherit
-
-  vitest:
-    name: Vitest
-    uses: valkyrjaio/.github/.github/workflows/_ts-vitest.yml@ddea291816127b905f6e00006e998f4a6851c1e8
-    with:
-      ci-directory: .github/ci/vitest
-      paths: |
-        ci:
-          - '.github/ci/vitest/**'
-          - '.github/workflows/ci.yml'
-        files:
-          - '.github/ci/vitest/**'
-          - '.github/workflows/ci.yml'
-          - 'src/**/*.ts'
-          - 'tests/**/*.ts'
-          - 'bin/**/*.ts'
-          - 'package.json'
-          - 'package-lock.json'
-    secrets: inherit
-
-  # Unlike `vitest` (which seeds the empty `*.example.ts` stubs via the root
-  # postinstall and asserts the stub classes), this job runs Sindri to generate
-  # the REAL App*Data classes into the source tree and tests the application as
-  # it actually runs in production — a separate, isolated environment so stubbed
-  # and generated results never mingle, and a way to exercise Sindri against a
-  # real application before a release. It cannot reuse `_ts-vitest.yml`: that
-  # workflow has no step to run the generator, so the job is defined inline here
-  # (no shared/reusable workflow is modified).
   sindri-vitest:
     name: Sindri Vitest
 
@@ -159,3 +72,21 @@ jobs:
       - name: Run Sindri Vitest
         working-directory: .github/ci/sindri-vitest
         run: npm run check
+
+  # A check's name is built from every job name down the call chain, so this composes
+  # as `CI / Tools / <Tool> / …`.
+  tools:
+    name: Tools
+    uses: valkyrjaio/.github/.github/workflows/_ts-ci-tools.yml@41d9c881616a104cc1a94b187958e2606445fba2
+    with:
+      eslint-additional-directory: '.github/ci/typescript'
+      source-paths: |
+        src/**/*.ts
+        bin/**/*.ts
+        tsconfig.json
+        package.json
+        package-lock.json
+        *.json
+        *.md
+        tests/**/*.ts
+    secrets: inherit

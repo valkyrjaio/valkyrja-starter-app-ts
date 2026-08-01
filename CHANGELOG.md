@@ -1,6 +1,15 @@
 # Release Notes for 26.x
 
-## [Unreleased](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.4.1...26.x)
+## [Unreleased](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.4.2...26.x)
+
+## [v26.4.2](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.4.1...v26.4.2) - 2026-08-01
+
+* [Workflow] ci: Update .github workflow refs to v26.17.0 by [@valkyrja-volundr](https://github.com/valkyrja-volundr)[bot] in https://github.com/valkyrjaio/valkyrja-starter-app-ts/pull/104
+* [Workflow] ci: Correct the Claude review trigger by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/valkyrja-starter-app-ts/pull/105
+* [Workflow] refactor: Split the pull request checks out of CI by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/valkyrja-starter-app-ts/pull/106
+* [Workflow] ci: Rename the version branch workflow from major to yearly by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/valkyrja-starter-app-ts/pull/107
+* [Workflow] ci: Update .github workflow refs to v26.18.0 by [@valkyrja-volundr](https://github.com/valkyrja-volundr)[bot] in https://github.com/valkyrjaio/valkyrja-starter-app-ts/pull/108
+* [Workflow] ci: Update .github workflow refs to v26.18.1 by [@valkyrja-volundr](https://github.com/valkyrja-volundr)[bot] in https://github.com/valkyrjaio/valkyrja-starter-app-ts/pull/109
 
 ## [v26.4.1](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.4.0...v26.4.1) - 2026-07-31
 

@@ -1,6 +1,6 @@
 {
     "name": "@valkyrjaio/application",
-    "version": "26.4.2",
+    "version": "26.5.0",
     "type": "module",
     "dependencies": {
         "@valkyrjaio/valkyrja": "^26.6.0"

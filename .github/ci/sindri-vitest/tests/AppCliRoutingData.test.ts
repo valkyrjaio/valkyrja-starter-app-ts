@@ -28,14 +28,7 @@ describe('generated AppCliRoutingData', () => {
 
         // Decorator-scanned command routes are emitted first, then the imperative
         // `getRoutes()` commands the framework's own route providers declare.
-        expect(Object.keys(data.routes)).toStrictEqual([
-            'test',
-            'help',
-            'list',
-            'list:bash',
-            'version',
-            'http:list',
-        ]);
+        expect(Object.keys(data.routes)).toStrictEqual(['test', 'help', 'list', 'list:bash', 'version', 'http:list']);
     });
 
     it.each([['test'], ['help'], ['list'], ['list:bash'], ['version'], ['http:list']])(

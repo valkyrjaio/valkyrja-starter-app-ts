@@ -1,6 +1,8 @@
 # Release Notes for 26.x
 
-## [Unreleased](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.5.0...26.x)
+## [Unreleased](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.6.0...26.x)
+
+## [v26.6.0](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.5.0...v26.6.0) - 2026-08-01
 
 ## [v26.5.0](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.4.2...v26.5.0) - 2026-08-01
 

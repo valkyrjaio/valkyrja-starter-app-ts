@@ -11,7 +11,10 @@ import { describe, expect, it } from 'vitest';
 import { StatusCode } from '@valkyrjaio/valkyrja/Grpc/Message/Enum/StatusCode.ts';
 import { ServiceCall } from '@valkyrjaio/valkyrja/Grpc/Message/Call/ServiceCall.ts';
 
+import { AttributeRouteCollector } from '@valkyrjaio/valkyrja/Grpc/Routing/Collector/AttributeRouteCollector.ts';
+
 import { PingController } from '../../../../../src/App/Grpc/Controller/PingController.ts';
+import { GrpcRouteProvider } from '../../../../../src/App/Grpc/Provider/GrpcRouteProvider.ts';
 
 const call = (message: unknown): ServiceCall => ServiceCall.unary('/app.Ping/Ping', message);
 
@@ -49,5 +52,27 @@ describe('PingController', () => {
 
         expect(response.getStatus().getCode()).toBe(StatusCode.NOT_FOUND);
         expect(response.getStatus().getMessage()).toBe('no such record');
+    });
+
+    // The decorators are the route declarations, so read them back through the same collector the
+    // framework uses in debug mode. This also proves each handler thunk resolves — a thunk that
+    // names a missing method silently degrades the route to UNIMPLEMENTED.
+    it('declares the four service methods through its decorators', () => {
+        const routes = new AttributeRouteCollector().getRoutes(PingController);
+
+        expect(routes.map((route) => route.getMethod())).toStrictEqual([
+            '/app.Ping/Ping',
+            '/app.Ping/Fanout',
+            '/app.Ping/Collect',
+            '/app.Ping/Missing',
+        ]);
+        expect(routes.map((route) => route.isClientStreaming())).toStrictEqual([false, false, true, false]);
+        expect(routes.map((route) => route.isServerStreaming())).toStrictEqual([false, true, false, false]);
+        expect(routes.map((route) => route.getHandler())).toStrictEqual([
+            GrpcRouteProvider.pingHandler,
+            GrpcRouteProvider.fanoutHandler,
+            GrpcRouteProvider.collectHandler,
+            GrpcRouteProvider.missingHandler,
+        ]);
     });
 });

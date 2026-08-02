@@ -27,20 +27,17 @@ function containerWithPing(): Container {
 }
 
 describe('GrpcRouteProvider', () => {
-    it('registers one route per service method, keyed by fully-qualified method', () => {
-        expect(new GrpcRouteProvider().getRoutes().map((route) => route.getMethod())).toStrictEqual([
-            '/app.Ping/Ping',
-            '/app.Ping/Fanout',
-            '/app.Ping/Collect',
-            '/app.Ping/Missing',
-        ]);
+    // The four ping routes moved from `getRoutes()` onto `PingController`'s `@Method`
+    // decorators; Sindri reads them statically from the controller that
+    // `getControllerClasses()` names, so the imperative list is now empty.
+    it('registers no imperative routes, declaring them on the controller instead', () => {
+        expect(new GrpcRouteProvider().getRoutes()).toStrictEqual([]);
     });
 
-    it('carries the streaming shape of each method', () => {
-        const routes = new GrpcRouteProvider().getRoutes();
-
-        expect(routes.map((route) => route.isClientStreaming())).toStrictEqual([false, false, true, false]);
-        expect(routes.map((route) => route.isServerStreaming())).toStrictEqual([false, true, false, false]);
+    // Debug mode rediscovers routes at run time from this list, so it must hand
+    // back the real class object, not a type-only reference erased at run time.
+    it('names the controller its routes are declared on', () => {
+        expect(new GrpcRouteProvider().getControllerClasses()).toStrictEqual([PingController]);
     });
 
     it('answers a unary call with the message the controller renders', async () => {

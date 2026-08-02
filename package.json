@@ -1,6 +1,7 @@
 {
     "name": "@valkyrjaio/application",
     "version": "26.6.0",
+    "license": "MIT",
     "type": "module",
     "dependencies": {
         "@valkyrjaio/valkyrja": "^26.6.0"

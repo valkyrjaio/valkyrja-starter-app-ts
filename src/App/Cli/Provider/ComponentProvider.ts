@@ -6,7 +6,6 @@
  * Released under the MIT License. See LICENSE.md for details.
  */
 
-import { ComponentProvider as ValkyrjaComponentProvider } from '@valkyrjaio/valkyrja/Application/Provider/Abstract/ComponentProvider.ts';
 import { ContainerServiceProvider } from '@valkyrjaio/valkyrja/Container/Provider/ContainerServiceProvider.ts';
 import { DataServiceProvider } from './DataServiceProvider.ts';
 import { CliRouteProvider } from './CliRouteProvider.ts';
@@ -17,19 +16,34 @@ import type { CliRouteProviderContract } from '@valkyrjaio/valkyrja/Cli/Routing/
 import type { ComponentProviderContract } from '@valkyrjaio/valkyrja/Application/Provider/Contract/ComponentProviderContract.ts';
 import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
 import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.ts';
+import type { ListenerProviderContract } from '@valkyrjaio/valkyrja/Event/Provider/Contract/ListenerProviderContract.ts';
+import type { HttpRouteProviderContract } from '@valkyrjaio/valkyrja/Http/Routing/Provider/Contract/HttpRouteProviderContract.ts';
+import type { GrpcRouteProviderContract } from '@valkyrjaio/valkyrja/Grpc/Routing/Provider/Contract/GrpcRouteProviderContract.ts';
 import { CliWithHttpApplicationComponentProvider } from '@valkyrjaio/valkyrja/Application/Provider/CliWithHttpApplicationComponentProvider.ts';
 
-export class ComponentProvider extends ValkyrjaComponentProvider {
-    override getComponentProviders(_app: ApplicationContract): ComponentProviderContract[] {
+export class ComponentProvider implements ComponentProviderContract {
+    getComponentProviders(_app: ApplicationContract): ComponentProviderContract[] {
         return [new CliWithHttpApplicationComponentProvider()];
     }
 
-    override getContainerProviders(_app: ApplicationContract): ServiceProviderContract[] {
+    getContainerProviders(_app: ApplicationContract): ServiceProviderContract[] {
         return [new DataServiceProvider(), new ServiceProvider()];
     }
 
-    override getCliProviders(_app: ApplicationContract): CliRouteProviderContract[] {
+    getEventProviders(_app: ApplicationContract): ListenerProviderContract[] {
+        return [];
+    }
+
+    getCliProviders(_app: ApplicationContract): CliRouteProviderContract[] {
         return [new CliRouteProvider()];
+    }
+
+    getHttpProviders(_app: ApplicationContract): HttpRouteProviderContract[] {
+        return [];
+    }
+
+    getGrpcProviders(_app: ApplicationContract): GrpcRouteProviderContract[] {
+        return [];
     }
 
     static publish(app: ApplicationContract): void {

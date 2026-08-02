@@ -12,6 +12,7 @@ import { describe, expect, it } from 'vitest';
 import { Container } from '@valkyrjaio/valkyrja/Container/Manager/Container.ts';
 import { HttpMessageServiceId } from '@valkyrjaio/valkyrja/Http/Message/Constant/HttpMessageServiceId.ts';
 
+import { AppHttpServiceId } from '../../../../../src/App/Http/Constant/AppHttpServiceId.ts';
 import { HomeController } from '../../../../../src/App/Http/Controller/HomeController.ts';
 import { ServiceProvider } from '../../../../../src/App/Http/Provider/ServiceProvider.ts';
 
@@ -27,6 +28,6 @@ describe('ServiceProvider', () => {
 
         ServiceProvider.publishHomeController(container);
 
-        expect(container.getSingleton(ServiceProvider.HomeControllerId)).toBeInstanceOf(HomeController);
+        expect(container.getSingleton(AppHttpServiceId.HomeController)).toBeInstanceOf(HomeController);
     });
 });

@@ -15,7 +15,10 @@ import { CliInteractionConfig } from '@valkyrjaio/valkyrja/Cli/Interaction/Data/
 import { OutputFactory } from '@valkyrjaio/valkyrja/Cli/Interaction/Output/Factory/OutputFactory.ts';
 import { Route } from '@valkyrjaio/valkyrja/Cli/Routing/Data/Route.ts';
 
+import { readCliRouteMetadata } from '@valkyrjaio/valkyrja/Cli/Routing/Attribute/RouteAttributeMetadata.ts';
+
 import { TestCommand } from '../../../../../src/App/Cli/Command/TestCommand.ts';
+import { CliRouteProvider } from '../../../../../src/App/Cli/Provider/CliRouteProvider.ts';
 
 import type { OutputContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Output/Contract/OutputContract.ts';
 
@@ -49,6 +52,20 @@ describe('TestCommand', () => {
         const result = command().answered(output, answer);
 
         expect(result.getMessages().length).toBeGreaterThan(0);
+    });
+
+    // The handler and help-text references are thunks because a TC39 Stage-3 method
+    // decorator runs while the class binding is still in its temporal dead zone. That
+    // is what makes `helpText: [() => TestCommand, 'help']` — a self-reference PHP
+    // spells `self::class` — legal at all.
+    it('resolves the handler thunk to the provider and the help-text thunk to itself', () => {
+        const metadata = readCliRouteMetadata(TestCommand as unknown as new (...args: unknown[]) => unknown);
+        const run = metadata?.methods.get('run');
+
+        expect(run?.handler?.[0]()).toBe(CliRouteProvider);
+        expect(run?.handler?.[1]).toBe('testCommandHandler');
+        expect(run?.routes[0]?.helpText?.[0]()).toBe(TestCommand);
+        expect(run?.routes[0]?.helpText?.[1]).toBe('help');
     });
 
     it('adds a new line for a non-yes answer', () => {

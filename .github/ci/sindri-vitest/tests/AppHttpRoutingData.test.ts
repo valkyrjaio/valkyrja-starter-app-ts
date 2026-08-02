@@ -52,6 +52,11 @@ describe('generated AppHttpRoutingData', () => {
 
     it('builds the dynamic route paths and regexes', () => {
         expect(data.dynamicPaths['GET']?.['/{value}']).toBe('dynamicValue');
-        expect(data.regexes['GET']?.['/([a-zA-Z]+)']).toBe('dynamicValue');
+        // The decorator generation path emits the framework Processor's anchored,
+        // named-group regex derived from the `{value}` path and its `[a-zA-Z]+`
+        // parameter, rather than the hand-written `/([a-zA-Z]+)` the imperative
+        // provider previously supplied. It carries no PHP-style `/.../` delimiters,
+        // so `Matcher`'s `new RegExp(...)` matches it.
+        expect(data.regexes['GET']?.['^\\/(?<value>[a-zA-Z]+)$']).toBe('dynamicValue');
     });
 });

@@ -8,11 +8,14 @@
  */
 
 import { ApplicationServiceId } from '@valkyrjaio/valkyrja/Application/Constant/ApplicationServiceId.ts';
-import { DynamicRoute } from '@valkyrjaio/valkyrja/Http/Routing/Data/DynamicRoute.ts';
-import { Parameter } from '@valkyrjaio/valkyrja/Http/Routing/Data/Parameter.ts';
-import { Route } from '@valkyrjaio/valkyrja/Http/Routing/Data/Route.ts';
-import { RequestMethod } from '@valkyrjaio/valkyrja/Http/Message/Enum/RequestMethod.ts';
-import { ServiceProvider } from './ServiceProvider.ts';
+import { AppHttpServiceId } from '../Constant/AppHttpServiceId.ts';
+// A real value import, even though the controller imports this provider back for its
+// `@RouteHandler` references. That cycle is safe now that handler references are
+// thunks: the controller's decorators only build closures, so nothing dereferences
+// this half-initialized module binding at class-definition time. Debug mode needs
+// the actual class object from `getControllerClasses()`, which a type-only import
+// (erased at run time) cannot provide.
+import { HomeController } from '../Controller/HomeController.ts';
 
 import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.ts';
 import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
@@ -20,29 +23,18 @@ import type { DynamicRouteContract } from '@valkyrjaio/valkyrja/Http/Routing/Dat
 import type { ResponseContract } from '@valkyrjaio/valkyrja/Http/Message/Response/Contract/ResponseContract.ts';
 import type { RouteContract } from '@valkyrjaio/valkyrja/Http/Routing/Data/Contract/RouteContract.ts';
 import type { HttpRouteProviderContract } from '@valkyrjaio/valkyrja/Http/Routing/Provider/Contract/HttpRouteProviderContract.ts';
-import { HomeController } from '../Controller/HomeController.ts';
 
 export class HttpRouteProvider implements HttpRouteProviderContract {
+    getControllerClasses(): Array<new (...args: unknown[]) => unknown> {
+        // Sindri reads this list statically from the AST; the debug-mode runtime
+        // collector reads the same list at run time, so the real class object has
+        // to be here (it is a value import for exactly that reason).
+        // @ts-expect-error -- the contract's `new (...args: unknown[]) => unknown` cannot express a controller's own constructor parameters
+        return [HomeController];
+    }
+
     getRoutes(): Array<RouteContract | DynamicRouteContract> {
-        return [
-            new Route('/version', 'version', HttpRouteProvider.versionHandler, [
-                RequestMethod.GET,
-                RequestMethod.POST,
-                RequestMethod.PUT,
-            ]),
-            new Route('/text', 'text', HttpRouteProvider.textHandler, [RequestMethod.GET]),
-            new Route('/', 'welcome', HttpRouteProvider.welcomeHandler),
-            new Route('/cached', 'welcome.cached', HttpRouteProvider.welcomeCachedHandler),
-            new DynamicRoute(
-                '/{value}',
-                'dynamicValue',
-                '/([a-zA-Z]+)',
-                [new Parameter('value', '[a-zA-Z]+')],
-                HttpRouteProvider.dynamicHandler,
-            ),
-            new Route('/home', 'home', HttpRouteProvider.homeHandler, [RequestMethod.GET, RequestMethod.HEAD]),
-            new Route('/json', 'json', HttpRouteProvider.jsonHandler),
-        ];
+        return [];
     }
 
     static versionHandler(this: void, container: ContainerContract, _route: RouteContract): ResponseContract {
@@ -56,25 +48,25 @@ export class HttpRouteProvider implements HttpRouteProviderContract {
     }
 
     static welcomeHandler(this: void, container: ContainerContract, _route: RouteContract): ResponseContract {
-        return container.getSingleton<HomeController>(ServiceProvider.HomeControllerId).welcome();
+        return container.getSingleton<HomeController>(AppHttpServiceId.HomeController).welcome();
     }
 
     static welcomeCachedHandler(this: void, container: ContainerContract, _route: RouteContract): ResponseContract {
-        return container.getSingleton<HomeController>(ServiceProvider.HomeControllerId).welcomeCached();
+        return container.getSingleton<HomeController>(AppHttpServiceId.HomeController).welcomeCached();
     }
 
     static dynamicHandler(this: void, container: ContainerContract, route: RouteContract): ResponseContract {
         const param = (route as DynamicRouteContract).getParameters().find((p) => p.getName() === 'value');
         const value = (param?.getValue() as string | undefined) ?? '';
 
-        return container.getSingleton<HomeController>(ServiceProvider.HomeControllerId).dynamic(value);
+        return container.getSingleton<HomeController>(AppHttpServiceId.HomeController).dynamic(value);
     }
 
     static homeHandler(this: void, container: ContainerContract, _route: RouteContract): ResponseContract {
-        return container.getSingleton<HomeController>(ServiceProvider.HomeControllerId).home();
+        return container.getSingleton<HomeController>(AppHttpServiceId.HomeController).home();
     }
 
     static jsonHandler(this: void, container: ContainerContract, _route: RouteContract): ResponseContract {
-        return container.getSingleton<HomeController>(ServiceProvider.HomeControllerId).json();
+        return container.getSingleton<HomeController>(AppHttpServiceId.HomeController).json();
     }
 }

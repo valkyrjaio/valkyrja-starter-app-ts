@@ -16,8 +16,8 @@ import { OutputFactory } from '@valkyrjaio/valkyrja/Cli/Interaction/Output/Facto
 import { Container } from '@valkyrjaio/valkyrja/Container/Manager/Container.ts';
 import { Route } from '@valkyrjaio/valkyrja/Cli/Routing/Data/Route.ts';
 
+import { AppCliServiceId } from '../../../../../src/App/Cli/Constant/AppCliServiceId.ts';
 import { CliRouteProvider } from '../../../../../src/App/Cli/Provider/CliRouteProvider.ts';
-import { ServiceProvider } from '../../../../../src/App/Cli/Provider/ServiceProvider.ts';
 import { TestCommand } from '../../../../../src/App/Cli/Command/TestCommand.ts';
 
 import type { OutputContract } from '@valkyrjaio/valkyrja/Cli/Interaction/Output/Contract/OutputContract.ts';
@@ -29,18 +29,26 @@ afterEach(() => {
 });
 
 describe('CliRouteProvider', () => {
-    it('provides the test route', () => {
-        const routes = new CliRouteProvider().getRoutes();
+    // The `test` command moved from `getRoutes()` onto `TestCommand`'s `@Route`
+    // decorator; Sindri reads it statically from the command that
+    // `getControllerClasses()` names, so the imperative list is now empty.
+    it('registers no imperative routes, declaring the command on the controller instead', () => {
+        expect(new CliRouteProvider().getRoutes()).toStrictEqual([]);
+    });
 
-        expect(routes).toHaveLength(1);
-        expect(routes[0]?.getName()).toBe('test');
+    // Debug mode rediscovers commands at run time from this list, so it must hand
+    // back the real class object. That is only possible because the command's
+    // decorator references are thunks: the value import below closes a command ↔
+    // provider cycle that a bare class reference would blow up on.
+    it('names the TestCommand class for the debug-mode collector', () => {
+        expect(new CliRouteProvider().getControllerClasses()).toStrictEqual([TestCommand]);
     });
 
     it('runs the test command through its handler', () => {
         const container = new Container();
         container.setSingleton(ApplicationServiceId.CliConfigContract, new CliConfig());
         container.setSingleton(
-            ServiceProvider.TestCommandId,
+            AppCliServiceId.TestCommand,
             new TestCommand({} as never, new OutputFactory(new CliInteractionConfig())),
         );
         const route = new Route('test', 'Test command', (): OutputContract => new OutputFactory().createOutput());

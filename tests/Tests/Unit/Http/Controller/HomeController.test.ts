@@ -14,7 +14,10 @@ import { JsonResponse } from '@valkyrjaio/valkyrja/Http/Message/Response/JsonRes
 import { TextResponse } from '@valkyrjaio/valkyrja/Http/Message/Response/TextResponse.ts';
 import { ResponseFactory } from '@valkyrjaio/valkyrja/Http/Message/Response/Factory/ResponseFactory.ts';
 
+import { readHttpRouteMetadata } from '@valkyrjaio/valkyrja/Http/Routing/Attribute/RouteAttributeMetadata.ts';
+
 import { HomeController } from '../../../../../src/App/Http/Controller/HomeController.ts';
+import { HttpRouteProvider } from '../../../../../src/App/Http/Provider/HttpRouteProvider.ts';
 
 import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.ts';
 
@@ -48,5 +51,25 @@ describe('HomeController', () => {
 
     it('renders a json response', () => {
         expect(controller().json()).toBeInstanceOf(JsonResponse);
+    });
+
+    // Every `@RouteHandler` names its provider through a thunk —
+    // `[() => HttpRouteProvider, 'versionHandler']` — because a TC39 Stage-3 method
+    // decorator runs while the class binding is still in its temporal dead zone, so
+    // a bare class reference would throw on the controller ↔ provider import cycle.
+    // This pins that each thunk really does resolve to the provider, and that the
+    // method name it is paired with exists there.
+    it('resolves every route handler thunk to the provider holding the named handler', () => {
+        const metadata = readHttpRouteMetadata(HomeController as unknown as new (...args: unknown[]) => unknown);
+        const provider = HttpRouteProvider as unknown as Record<string, unknown>;
+
+        expect(metadata?.methods.size).toBe(7);
+
+        for (const method of metadata?.methods.values() ?? []) {
+            const reference = method.handler;
+
+            expect(reference?.[0]()).toBe(HttpRouteProvider);
+            expect(typeof provider[reference?.[1] ?? '']).toBe('function');
+        }
     });
 });

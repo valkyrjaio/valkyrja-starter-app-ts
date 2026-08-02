@@ -26,22 +26,35 @@ describe('generated AppCliRoutingData', () => {
     it('generates the framework built-in commands alongside the app test command', () => {
         const data = new AppCliRoutingData();
 
+        // Decorator-scanned command routes are emitted first, then the imperative
+        // `getRoutes()` commands the framework's own route providers declare.
         expect(Object.keys(data.routes)).toStrictEqual([
+            'test',
             'help',
             'list',
             'list:bash',
             'version',
             'http:list',
-            'test',
         ]);
     });
 
-    it.each([['help'], ['list'], ['list:bash'], ['version'], ['http:list'], ['test']])(
+    it.each([['test'], ['help'], ['list'], ['list:bash'], ['version'], ['http:list']])(
         'names the %s route after its key',
         (name) => {
             expect(new AppCliRoutingData().routes[name]!().getName()).toBe(name);
         },
     );
+
+    // `helpText: [() => TestCommand, 'help']` is a self-reference, which only works
+    // because the handler reference is a thunk: naming `TestCommand` directly in its
+    // own decorator would hit the class binding's temporal dead zone. Sindri looks
+    // through the thunk and emits the plain `TestCommand.help` reference.
+    it('generates the self-referential help text for the test command', () => {
+        const route = new AppCliRoutingData().routes['test']!();
+
+        expect(route.hasHelpText()).toBe(true);
+        expect(route.getHelpTextMessage().getText()).toBe('A command to showcase possibilities for commands.');
+    });
 
     it('generates only the HTTP routing command for the HTTP application', () => {
         const data = new HttpAppCliRoutingData();

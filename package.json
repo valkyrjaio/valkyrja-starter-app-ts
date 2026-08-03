@@ -8,7 +8,7 @@
     },
     "devDependencies": {
         "@valkyrjaio/sindri": "^26.6.1",
-        "tsx": "^4.23.4"
+        "tsx": "^4.23.5"
     },
     "scripts": {
         "postinstall": "node scripts/copy-example-files.mjs",

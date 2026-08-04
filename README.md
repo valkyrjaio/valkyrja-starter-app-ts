@@ -150,7 +150,7 @@ under the [MIT license][MIT license url]. See [`LICENSE.md`](./LICENSE.md).
 [framework url]: https://github.com/valkyrjaio/valkyrja-ts
 [sindri url]: https://github.com/valkyrjaio/sindri-ts
 [docs url]: https://valkyrja.io
-[contributing url]: https://github.com/valkyrjaio/.github/blob/master/CONTRIBUTING.md
-[vocabulary url]: https://github.com/valkyrjaio/.github/blob/master/VOCABULARY.md
+[contributing url]: https://github.com/valkyrjaio/.github/blob/26.x/CONTRIBUTING.md
+[vocabulary url]: https://github.com/valkyrjaio/.github/blob/26.x/VOCABULARY.md
 [MIT license url]: https://opensource.org/licenses/MIT
 [license url]: ./LICENSE.md

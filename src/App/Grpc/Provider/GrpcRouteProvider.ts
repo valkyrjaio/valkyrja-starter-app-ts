@@ -7,7 +7,6 @@
  */
 
 import { GrpcMessageServiceId } from '@valkyrjaio/valkyrja/Grpc/Message/Constant/GrpcMessageServiceId.ts';
-import { Route } from '@valkyrjaio/valkyrja/Grpc/Routing/Data/Route.ts';
 import { ServiceProvider } from './ServiceProvider.ts';
 
 import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
@@ -15,16 +14,24 @@ import type { ServiceCallContract } from '@valkyrjaio/valkyrja/Grpc/Message/Call
 import type { ServiceResponseContract } from '@valkyrjaio/valkyrja/Grpc/Message/Response/Contract/ServiceResponseContract.ts';
 import type { RouteContract } from '@valkyrjaio/valkyrja/Grpc/Routing/Data/Contract/RouteContract.ts';
 import type { GrpcRouteProviderContract } from '@valkyrjaio/valkyrja/Grpc/Routing/Provider/Contract/GrpcRouteProviderContract.ts';
+// A real value import, even though the controller imports this provider back for its
+// `@Method` handler references. That cycle is safe now that handler references are
+// thunks: the controller's decorators only build closures, so nothing dereferences
+// this half-initialized module binding at class-definition time. Debug mode needs
+// the actual class object from `getControllerClasses()`, which a type-only import
+// (erased at run time) cannot provide.
 import { PingController } from '../Controller/PingController.ts';
 
 export class GrpcRouteProvider implements GrpcRouteProviderContract {
+    getControllerClasses(): Array<new (...args: unknown[]) => unknown> {
+        // Sindri reads this list statically from the AST; the debug-mode runtime
+        // collector reads the same list at run time, so the real class object has
+        // to be here (it is a value import for exactly that reason).
+        return [PingController];
+    }
+
     getRoutes(): RouteContract[] {
-        return [
-            new Route('/app.Ping/Ping', GrpcRouteProvider.pingHandler),
-            new Route('/app.Ping/Fanout', GrpcRouteProvider.fanoutHandler).withServerStreaming(true),
-            new Route('/app.Ping/Collect', GrpcRouteProvider.collectHandler).withClientStreaming(true),
-            new Route('/app.Ping/Missing', GrpcRouteProvider.missingHandler),
-        ];
+        return [];
     }
 
     static pingHandler(this: void, container: ContainerContract): Promise<ServiceResponseContract> {

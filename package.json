@@ -7,7 +7,7 @@
         "@valkyrjaio/valkyrja": "^26.7.7"
     },
     "devDependencies": {
-        "@valkyrjaio/sindri": "^26.6.12",
+        "@valkyrjaio/sindri": "^26.6.13",
         "tsx": "^4.23.12"
     },
     "scripts": {

@@ -4,10 +4,10 @@
     "license": "MIT",
     "type": "module",
     "dependencies": {
-        "@valkyrjaio/valkyrja": "^26.7.13"
+        "@valkyrjaio/valkyrja": "^26.7.14"
     },
     "devDependencies": {
-        "@valkyrjaio/sindri": "^26.6.21",
+        "@valkyrjaio/sindri": "^26.6.22",
         "tsx": "^4.23.12"
     },
     "scripts": {

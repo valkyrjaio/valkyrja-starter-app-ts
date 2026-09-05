@@ -4,7 +4,7 @@
     "license": "MIT",
     "type": "module",
     "dependencies": {
-        "@valkyrjaio/valkyrja": "^26.8.0"
+        "@valkyrjaio/valkyrja": "^26.8.1"
     },
     "devDependencies": {
         "@valkyrjaio/sindri": "^26.6.31",

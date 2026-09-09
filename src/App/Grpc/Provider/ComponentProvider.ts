@@ -6,24 +6,24 @@
  * Released under the MIT License. See LICENSE.md for details.
  */
 
+import { GrpcApplicationComponentProvider } from '@valkyrjaio/valkyrja/Application/Provider/GrpcApplicationComponentProvider.ts';
 import { ContainerServiceProvider } from '@valkyrjaio/valkyrja/Container/Provider/ContainerServiceProvider.ts';
 import { DataServiceProvider } from './DataServiceProvider.ts';
-import { HttpRouteProvider } from './HttpRouteProvider.ts';
+import { GrpcRouteProvider } from './GrpcRouteProvider.ts';
 import { ServiceProvider } from './ServiceProvider.ts';
 
 import type { ApplicationContract } from '@valkyrjaio/valkyrja/Application/Kernel/Contract/ApplicationContract.ts';
 import type { ComponentProviderContract } from '@valkyrjaio/valkyrja/Application/Provider/Contract/ComponentProviderContract.ts';
 import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
-import type { HttpRouteProviderContract } from '@valkyrjaio/valkyrja/Http/Routing/Provider/Contract/HttpRouteProviderContract.ts';
 import type { ServiceProviderContract } from '@valkyrjaio/valkyrja/Container/Provider/Contract/ServiceProviderContract.ts';
+import type { GrpcRouteProviderContract } from '@valkyrjaio/valkyrja/Grpc/Routing/Provider/Contract/GrpcRouteProviderContract.ts';
 import type { ListenerProviderContract } from '@valkyrjaio/valkyrja/Event/Provider/Contract/ListenerProviderContract.ts';
 import type { CliRouteProviderContract } from '@valkyrjaio/valkyrja/Cli/Routing/Provider/Contract/CliRouteProviderContract.ts';
-import type { GrpcRouteProviderContract } from '@valkyrjaio/valkyrja/Grpc/Routing/Provider/Contract/GrpcRouteProviderContract.ts';
-import { HttpApplicationComponentProvider } from '@valkyrjaio/valkyrja/Application/Provider/HttpApplicationComponentProvider.ts';
+import type { HttpRouteProviderContract } from '@valkyrjaio/valkyrja/Http/Routing/Provider/Contract/HttpRouteProviderContract.ts';
 
 export class ComponentProvider implements ComponentProviderContract {
     getComponentProviders(_app: ApplicationContract): ComponentProviderContract[] {
-        return [new HttpApplicationComponentProvider()];
+        return [new GrpcApplicationComponentProvider()];
     }
 
     getContainerProviders(_app: ApplicationContract): ServiceProviderContract[] {
@@ -39,11 +39,11 @@ export class ComponentProvider implements ComponentProviderContract {
     }
 
     getHttpProviders(_app: ApplicationContract): HttpRouteProviderContract[] {
-        return [new HttpRouteProvider()];
+        return [];
     }
 
     getGrpcProviders(_app: ApplicationContract): GrpcRouteProviderContract[] {
-        return [];
+        return [new GrpcRouteProvider()];
     }
 
     static publish(app: ApplicationContract): void {

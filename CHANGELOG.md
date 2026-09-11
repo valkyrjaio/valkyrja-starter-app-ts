@@ -1,6 +1,11 @@
 # Release Notes for 26.x
 
-## [Unreleased](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.6.38...26.x)
+## [Unreleased](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.6.39...26.x)
+
+## [v26.6.39](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.6.38...v26.6.39) - 2026-09-11
+
+* [Dependency] build: Update npm dependencies by [@valkyrja-volundr](https://github.com/valkyrja-volundr)[bot] in https://github.com/valkyrjaio/valkyrja-starter-app-ts/pull/226
+* [Dependency] build: Update npm dependencies by [@valkyrja-volundr](https://github.com/valkyrja-volundr)[bot] in https://github.com/valkyrjaio/valkyrja-starter-app-ts/pull/227
 
 ## [v26.6.38](https://github.com/valkyrjaio/valkyrja-starter-app-ts/compare/v26.6.37...v26.6.38) - 2026-09-10
 

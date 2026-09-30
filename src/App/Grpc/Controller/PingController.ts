@@ -32,7 +32,7 @@ export class PingController extends Controller {
         return ServiceResponse.ok(`pong: ${PingController.render(messages[0] ?? '')}`);
     }
 
-    /** Server-streaming: one message in, several out, drained lazily by the adapter. */
+    /** Server-streaming: one message in, several out. */
     fanout(call: ServiceCallContract): ServiceResponseContract {
         const messages = [...(call.getMessages() as Iterable<unknown>)];
         const prefix = PingController.render(messages[0] ?? '');

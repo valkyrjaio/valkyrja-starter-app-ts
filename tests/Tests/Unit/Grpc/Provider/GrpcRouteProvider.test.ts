@@ -11,15 +11,16 @@ import { describe, expect, it } from 'vitest';
 import { Container } from '@valkyrjaio/valkyrja/Container/Manager/Container.ts';
 import { GrpcMessageServiceId } from '@valkyrjaio/valkyrja/Grpc/Message/Constant/GrpcMessageServiceId.ts';
 import { ServiceCall } from '@valkyrjaio/valkyrja/Grpc/Message/Call/ServiceCall.ts';
+import { StatusCode } from '@valkyrjaio/valkyrja/Grpc/Message/Enum/StatusCode.ts';
 
+import { AppGrpcServiceId } from '../../../../../src/App/Grpc/Constant/AppGrpcServiceId.ts';
 import { PingController } from '../../../../../src/App/Grpc/Controller/PingController.ts';
 import { GrpcRouteProvider } from '../../../../../src/App/Grpc/Provider/GrpcRouteProvider.ts';
-import { ServiceProvider } from '../../../../../src/App/Grpc/Provider/ServiceProvider.ts';
 
 function containerWithPing(): Container {
     const container = new Container();
 
-    container.setSingleton(ServiceProvider.PingControllerId, new PingController());
+    container.setSingleton(AppGrpcServiceId.PingController, new PingController());
     container.setSingleton(GrpcMessageServiceId.ServiceCallContract, ServiceCall.unary('/app.Ping/Ping', 'hi'));
 
     return container;
@@ -42,12 +43,32 @@ describe('GrpcRouteProvider', () => {
         expect(routes.map((route) => route.isServerStreaming())).toStrictEqual([false, true, false, false]);
     });
 
-    it('runs each route handler against the controller the container holds', async () => {
-        const container = containerWithPing();
+    it('answers a unary call with the message the controller renders', async () => {
+        const response = await GrpcRouteProvider.pingHandler(containerWithPing());
 
-        await expect(GrpcRouteProvider.pingHandler(container)).resolves.toBeDefined();
-        await expect(GrpcRouteProvider.fanoutHandler(container)).resolves.toBeDefined();
-        await expect(GrpcRouteProvider.collectHandler(container)).resolves.toBeDefined();
-        await expect(GrpcRouteProvider.missingHandler(container)).resolves.toBeDefined();
+        expect(response.getStatus().getCode()).toBe(StatusCode.OK);
+        expect([...response.getMessages()]).toStrictEqual(['pong: hi']);
+    });
+
+    it('answers a server-streaming call with every message the controller fans out', async () => {
+        const response = await GrpcRouteProvider.fanoutHandler(containerWithPing());
+
+        expect(response.getStatus().getCode()).toBe(StatusCode.OK);
+        expect([...response.getMessages()]).toStrictEqual(['hi: one', 'hi: two', 'hi: three']);
+    });
+
+    it('answers a client-streaming call with the count the controller collects', async () => {
+        const response = await GrpcRouteProvider.collectHandler(containerWithPing());
+
+        expect(response.getStatus().getCode()).toBe(StatusCode.OK);
+        expect([...response.getMessages()]).toStrictEqual(['collected 1']);
+    });
+
+    it('answers a missing record with NOT_FOUND and no message', async () => {
+        const response = await GrpcRouteProvider.missingHandler(containerWithPing());
+
+        expect(response.getStatus().getCode()).toBe(StatusCode.NOT_FOUND);
+        expect(response.getStatus().getMessage()).toBe('no such record');
+        expect([...response.getMessages()]).toStrictEqual([]);
     });
 });

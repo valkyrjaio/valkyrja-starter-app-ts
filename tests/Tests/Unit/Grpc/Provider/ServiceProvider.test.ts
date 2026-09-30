@@ -10,6 +10,7 @@ import { describe, expect, it } from 'vitest';
 
 import { Container } from '@valkyrjaio/valkyrja/Container/Manager/Container.ts';
 
+import { AppGrpcServiceId } from '../../../../../src/App/Grpc/Constant/AppGrpcServiceId.ts';
 import { PingController } from '../../../../../src/App/Grpc/Controller/PingController.ts';
 import { ServiceProvider } from '../../../../../src/App/Grpc/Provider/ServiceProvider.ts';
 
@@ -23,6 +24,6 @@ describe('ServiceProvider', () => {
 
         ServiceProvider.publishPingController(container);
 
-        expect(container.getSingleton(ServiceProvider.PingControllerId)).toBeInstanceOf(PingController);
+        expect(container.getSingleton(AppGrpcServiceId.PingController)).toBeInstanceOf(PingController);
     });
 });

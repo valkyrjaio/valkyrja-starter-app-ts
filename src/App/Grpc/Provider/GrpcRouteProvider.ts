@@ -8,14 +8,16 @@
 
 import { GrpcMessageServiceId } from '@valkyrjaio/valkyrja/Grpc/Message/Constant/GrpcMessageServiceId.ts';
 import { Route } from '@valkyrjaio/valkyrja/Grpc/Routing/Data/Route.ts';
-import { ServiceProvider } from './ServiceProvider.ts';
+
+import { AppGrpcServiceId } from '../Constant/AppGrpcServiceId.ts';
 
 import type { ContainerContract } from '@valkyrjaio/valkyrja/Container/Manager/Contract/ContainerContract.ts';
 import type { ServiceCallContract } from '@valkyrjaio/valkyrja/Grpc/Message/Call/Contract/ServiceCallContract.ts';
 import type { ServiceResponseContract } from '@valkyrjaio/valkyrja/Grpc/Message/Response/Contract/ServiceResponseContract.ts';
 import type { RouteContract } from '@valkyrjaio/valkyrja/Grpc/Routing/Data/Contract/RouteContract.ts';
 import type { GrpcRouteProviderContract } from '@valkyrjaio/valkyrja/Grpc/Routing/Provider/Contract/GrpcRouteProviderContract.ts';
-import { PingController } from '../Controller/PingController.ts';
+
+import type { PingController } from '../Controller/PingController.ts';
 
 export class GrpcRouteProvider implements GrpcRouteProviderContract {
     getRoutes(): RouteContract[] {
@@ -49,6 +51,6 @@ export class GrpcRouteProvider implements GrpcRouteProviderContract {
     }
 
     protected static controller(container: ContainerContract): PingController {
-        return container.getSingleton<PingController>(ServiceProvider.PingControllerId);
+        return container.getSingleton<PingController>(AppGrpcServiceId.PingController);
     }
 }

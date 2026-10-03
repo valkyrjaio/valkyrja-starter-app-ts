@@ -1,0 +1,27 @@
+/*
+ * This file is part of the Valkyrja Application package.
+ *
+ * Copyright (c) 2016-present Melech Mizrachi
+ *
+ * Released under the MIT License. See LICENSE.md for details.
+ */
+
+import { describe, expect, it } from 'vitest';
+
+import { Grpc } from '@valkyrjaio/valkyrja/Application/Entry/Grpc.ts';
+
+import { App } from '../../../../src/App/Grpc/App.ts';
+
+describe('App', () => {
+    it('is a Grpc entry', () => {
+        expect(App.prototype).toBeInstanceOf(Grpc);
+    });
+
+    it('exposes a throwable handler', () => {
+        expect(App.getThrowableHandler()).toBeDefined();
+    });
+
+    it('runs the default exception handler without throwing', () => {
+        expect(() => App.defaultExceptionHandler()).not.toThrow();
+    });
+});

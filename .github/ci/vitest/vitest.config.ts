@@ -19,7 +19,7 @@ const reportsDirectory = fileURLToPath(new URL('./coverage', import.meta.url));
 /**
  * Lower TC39 Stage-3 decorators in the application's source before Vitest parses it.
  *
- * The routing decorators (`@Route`, `@RouteHandler`, …) the controllers and CLI
+ * The routing decorators (`@Route`, `@Handler`, …) the controllers and CLI
  * commands carry are syntax Vitest's own transform cannot parse, so any test that
  * imports a decorated class would fail with a `SyntaxError`. Running esbuild over
  * just those files first lowers the decorators to plain calls, keeping the

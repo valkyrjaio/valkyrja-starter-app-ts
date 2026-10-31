@@ -55,6 +55,10 @@ describe('ComponentProvider', () => {
         expect(providers[0]).toBeInstanceOf(HttpRouteProvider);
     });
 
+    it('returns no grpc providers', () => {
+        expect(provider.getGrpcProviders(stubApp)).toHaveLength(0);
+    });
+
     it('publishes container data directly in production mode', () => {
         const container = new Container();
         const app = { getContainer: () => container, getDebugMode: () => false } as unknown as ApplicationContract;

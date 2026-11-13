@@ -52,7 +52,7 @@ describe('HomeController', () => {
         expect(controller().json()).toBeInstanceOf(JsonResponse);
     });
 
-    // Every `@RouteHandler` names its provider through a thunk —
+    // Every `@Handler` names its provider through a thunk —
     // `[() => HttpRouteProvider, 'versionHandler']` — because a TC39 Stage-3 method
     // decorator runs while the class binding is still in its temporal dead zone, so
     // a bare class reference would throw on the controller ↔ provider import cycle.

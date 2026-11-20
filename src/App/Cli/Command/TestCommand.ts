@@ -12,7 +12,7 @@ import { Message } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Message.ts
 import { NewLine } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/NewLine.ts';
 import { Question } from '@valkyrjaio/valkyrja/Cli/Interaction/Message/Question.ts';
 import { Route } from '@valkyrjaio/valkyrja/Cli/Routing/Attribute/Route.ts';
-import { RouteHandler } from '@valkyrjaio/valkyrja/Cli/Routing/Attribute/Route/RouteHandler.ts';
+import { Handler } from '@valkyrjaio/valkyrja/Cli/Routing/Attribute/Route/Handler.ts';
 import { Controller } from '../Controller/Abstract/Controller.ts';
 import { CliRouteProvider } from '../Provider/CliRouteProvider.ts';
 
@@ -37,7 +37,7 @@ export class TestCommand extends Controller {
     // The closure never dereferences the binding, so the self-reference is safe —
     // the collector calls it only once the module has finished initializing.
     @Route({ name: 'test', description: 'Test command', helpText: [() => TestCommand, 'help'] })
-    @RouteHandler([() => CliRouteProvider, 'testCommandHandler'])
+    @Handler([() => CliRouteProvider, 'testCommandHandler'])
     run(route: RouteContract, config: CliConfigContract): OutputContract {
         return this.outputFactory
             .createOutput()

@@ -14,7 +14,7 @@ import { describe, expect, it } from 'vitest';
 /**
  * End-to-end smoke test for the CLI entry point (`bin/cli.ts`).
  *
- * The command decorators (`@Route` / `@RouteHandler`) that `TestCommand` carries
+ * The command decorators (`@Route` / `@Handler`) that `TestCommand` carries
  * are TC39 Stage-3 syntax the application's Vitest transform cannot parse, so the
  * command is only unit-testable through the config's decorator-lowering transform.
  * This instead boots the real entry in a subprocess **under tsx** — the loader the

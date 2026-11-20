@@ -23,8 +23,8 @@ the foundation.
 
 ## What's in the Box
 
-- **Pre-wired HTTP and CLI kernels** — the application boots and responds to
-  both web requests and command-line invocations out of the box
+- **Pre-wired HTTP, CLI, and gRPC kernels** — the application boots and responds
+  to web requests, command-line invocations, and gRPC calls out of the box
 - **Example controllers and commands** — working code showing typical routing,
   request handling, and command dispatch patterns
 - **Configuration scaffolding** — `Config` and `Data` layers with example
@@ -60,14 +60,17 @@ The key directories you'll work in:
 src/
 └── App/           # your application code lives here
     ├── Cli/       # CLI commands, controllers, providers, configuration, and data
+    ├── Grpc/      # gRPC controllers, providers, configuration, and data
     └── Http/      # HTTP controllers, providers, configuration, and data
 bin/
-└── cli.ts         # CLI entry point
+├── cli.ts         # CLI entry point
+├── grpc.ts        # gRPC entry point
+└── http.ts        # HTTP entry point
 ```
 
 Your application code goes in the `App` namespace under `src/App/`. The starter
-provides example HTTP controllers and CLI commands you can study, modify, or
-replace.
+provides example HTTP controllers, CLI commands, and gRPC service methods you
+can study, modify, or replace.
 
 ### Running Your Application
 
@@ -82,12 +85,27 @@ npm run cli
 
 Run with no arguments to see the list of available commands.
 
+**gRPC:**
+
+```
+npm run grpc /app.Ping/Ping hello
+```
+
+gRPC ships no in-core server, because the protocol needs HTTP/2 with trailers.
+The command above dispatches one call through the full pipeline and prints the
+status and each message. To serve real traffic, drive `WorkerApp` from a
+transport adapter.
+
 ### Writing Code
 
 **Adding a route:** see the example controller in `src/App/Http/Controller/` and
 the route definitions registered by the providers under `src/App/Http/Provider/`.
 
 **Adding a command:** see the example command in `src/App/Cli/Command/`.
+
+**Adding a service method:** see the example controller in
+`src/App/Grpc/Controller/` and the routes the providers register under
+`src/App/Grpc/Provider/`.
 
 **Binding services:** the dependency injection container is configured in the
 `Provider` classes under each `App/` subdirectory.

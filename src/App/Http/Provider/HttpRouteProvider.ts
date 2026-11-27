@@ -9,7 +9,7 @@
 import { ApplicationServiceId } from '@valkyrjaio/valkyrja/Application/Constant/ApplicationServiceId.ts';
 import { AppHttpServiceId } from '../Constant/AppHttpServiceId.ts';
 // A real value import, even though the controller imports this provider back for its
-// `@RouteHandler` references. That cycle is safe now that handler references are
+// `@Handler` references. That cycle is safe now that handler references are
 // thunks: the controller's decorators only build closures, so nothing dereferences
 // this half-initialized module binding at class-definition time. Debug mode needs
 // the actual class object from `getControllerClasses()`, which a type-only import

@@ -18,7 +18,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 /**
  * End-to-end smoke test for the HTTP entry point (`bin/http.ts`).
  *
- * The route decorators (`@Route` / `@RouteHandler`) that `HomeController` carries
+ * The route decorators (`@Route` / `@Handler`) that `HomeController` carries
  * are TC39 Stage-3 syntax that the application's Vitest transform cannot parse, so
  * the controller can never be imported into a Vitest module. Instead this boots the
  * real entry in a subprocess **under tsx** — the loader the app actually uses — and
